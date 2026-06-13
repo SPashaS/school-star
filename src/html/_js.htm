@@ -1,0 +1,373 @@
+<!-- Swiper JS -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> -->
+<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
+
+<script src="js/app.min.js"></script>
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", () => {
+  const video = document.querySelector(".hero__video");
+  const placeholder = document.querySelector(".hero__placeholder");
+
+  if (video && placeholder) {
+    // Убедимся, что видео скрыто, а placeholder видим
+    video.style.opacity = "0";
+    video.style.visibility = "hidden";
+
+    // Проверяем готовность видео
+    const onVideoReady = () => {
+      placeholder.style.opacity = "0"; // Скрываем placeholder
+      video.style.visibility = "visible";
+      video.style.opacity = "1";
+
+      // Попытка воспроизвести видео
+      video.play().catch((error) => {
+        console.warn("Не удалось воспроизвести видео автоматически:", error);
+      });
+    };
+
+    // Добавляем атрибуты, чтобы поддерживалось воспроизведение на iPhone
+    video.setAttribute("muted", "true");
+    video.setAttribute("playsinline", "true");
+
+    // Событие загрузки видео
+    video.addEventListener("loadeddata", onVideoReady);
+
+    // Фолбэк на случай, если событие не сработает
+    if (video.readyState >= 3) {
+      onVideoReady();
+    }
+
+    // Воспроизведение видео по клику, если autoplay не срабатывает
+    placeholder.addEventListener("click", () => {
+      placeholder.style.opacity = "0"; // Скрываем placeholder
+      video.style.visibility = "visible";
+      video.style.opacity = "1";
+
+      video.play().catch((error) => {
+        console.warn("Ошибка при попытке воспроизведения видео:", error);
+      });
+    });
+  } else {
+    console.error("Элементы .hero__video или .hero__placeholder не найдены.");
+  }
+});
+
+  class CustomSlider {
+    constructor(wrapperSelector, breakpoints = [], itemsPerSlide = [], gap = 10) {
+      this.wrapper = document.querySelector(wrapperSelector);
+      if (!this.wrapper) {
+        console.error(`Элемент с классом ${wrapperSelector} не найден.`);
+        return;
+      }
+
+      this.slider = this.wrapper.querySelector('.custom-slider');
+      this.items = Array.from(this.wrapper.querySelectorAll('.custom-item'));
+      this.navPrev = this.wrapper.querySelector('.slider-nav__btn--prev');
+      this.navNext = this.wrapper.querySelector('.slider-nav__btn--next');
+
+      this.breakpoints = breakpoints;     // Массив: [768, 1280, ...]
+      this.itemsPerSlide = itemsPerSlide; // Массив: [2, 4, ...]
+      this.currentSlideIndex = 0;
+      this.totalSlides = 0;
+      this.gap = gap;
+
+      // Начальная настройка
+      // Вы хотите display: "flex" или "grid" — оставляю "flex" как в вашем коде
+      this.slider.style.display = 'flex';
+      this.slider.style.gap = `${this.gap}px`;
+
+
+
+      this.init();
+    }
+
+    init() {
+      window.addEventListener('resize', () => this.updateSlider());
+      this.updateSlider();
+
+      if (this.navPrev && this.navNext) {
+        this.navPrev.addEventListener('click', () => this.moveSlide(-1));
+        this.navNext.addEventListener('click', () => this.moveSlide(1));
+      }
+    }
+
+    /**
+     * Определяем количество элементов на слайд в зависимости от ширины экрана.
+     * Если breakpoints пусты — слайдер работает всегда, берём itemsPerSlide[0] или 1.
+     * Если ширина > последнего breakpoint — возвращаем null (отключаем).
+     */
+    getItemsPerSlide() {
+      // 1) Если нет breakpoints, значит слайдер работает на всех разрешениях
+      //    itemsPerSlide[0] или 1 по умолчанию
+      if (!this.breakpoints.length) {
+        if (this.itemsPerSlide.length) {
+          return this.itemsPerSlide[0];
+        } else {
+          return 1; // если даже itemsPerSlide пуст
+        }
+      }
+
+      // 2) Если breakpoints есть, ищем подходящее
+      const width = window.innerWidth;
+      for (let i = 0; i < this.breakpoints.length; i++) {
+        if (width <= this.breakpoints[i]) {
+          return this.itemsPerSlide[i];
+        }
+      }
+
+      // 3) Если ничего не подошло, ширина больше всех breakpoints => disable
+      return null;
+    }
+
+    updateSlider() {
+      const itemsPerSlide = this.getItemsPerSlide();
+
+      // Если вернулся null, отключаем
+      if (itemsPerSlide === null) {
+        this.disableSlider();
+      } else {
+        // Иначе перестраиваем
+        this.rebuildSlides(itemsPerSlide);
+        this.slider.style.display = 'flex';       // восстанавливаем display
+        this.slider.style.gap = `${this.gap}px`;  // восстанавливаем gap
+
+        this.currentSlideIndex = 0;
+        this.updateTransform();
+      }
+    }
+
+    rebuildSlides(itemsPerSlide) {
+      this.slider.innerHTML = '';
+
+      const slides = [];
+      for (let i = 0; i < this.items.length; i += itemsPerSlide) {
+        const slide = document.createElement('div');
+        slide.classList.add('custom-slider-slide');
+
+        this.items.slice(i, i + itemsPerSlide).forEach(item => {
+          slide.appendChild(item.cloneNode(true));
+        });
+        slides.push(slide);
+      }
+
+      slides.forEach(slide => this.slider.appendChild(slide));
+      this.slides = Array.from(this.slider.querySelectorAll('.custom-slider-slide'));
+      this.totalSlides = this.slides.length;
+
+      this.slider.style.transition = 'transform 0.5s ease';
+      this.slider.style.transform = 'translateX(0)';
+
+    }
+
+    moveSlide(direction) {
+      this.currentSlideIndex += direction;
+      if (this.currentSlideIndex < 0) {
+        this.currentSlideIndex = this.totalSlides - 1;
+      } else if (this.currentSlideIndex >= this.totalSlides) {
+        this.currentSlideIndex = 0;
+      }
+      this.updateTransform();
+    }
+
+    updateTransform() {
+      const translateX = -(this.currentSlideIndex * (100 + (this.gap / this.wrapper.offsetWidth) * 100));
+      this.slider.style.transform = `translateX(${translateX}%)`;
+
+      console.log("Wrapper width:", this.wrapper.offsetWidth);
+      console.log("TranslateX:", translateX);
+      console.log("Items in slider:", this.items.length);
+      console.log("First item visibility:", getComputedStyle(this.items[0]).display);
+
+    }
+
+    disableSlider() {
+      // Убираем слайды
+      this.slider.innerHTML = '';
+
+      // Возвращаем все .custom-item
+      this.items.forEach(item => {
+        this.slider.appendChild(item.cloneNode(true));
+      });
+
+      // Сбрасываем стили, которые навешивали
+      this.slider.style.removeProperty('transform');
+      this.slider.style.removeProperty('transition');
+      this.slider.style.removeProperty('gap');
+
+      // Меняем display на grid или что нужно (или оставляем "block"?)
+      // В примере оставляю grid, как вы хотели ранее, 
+      // но если нужно оставить flex, укажите здесь 'flex' или просто удалите строку
+      this.slider.style.display = 'grid';
+    }
+  }
+
+  // Инициализация слайдера
+  new CustomSlider('.quantity__slider-wrapper', [], [1], 0);
+
+  new CustomSlider('.safety__slider-wrapper', [768, 1280], [2, 4], 20);
+
+  new CustomSlider('.documents__slider-wrapper', [768, 1280], [2, 3], 20);
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Определяем массивы цветов для разных классов
+    const colorSets = {
+      "documents-item": [
+        "#d3e2ff",
+        "#ffebd0",
+        "#f0deff",
+        "#d8ffdc",
+        "#f0deff",
+        "#ffd0d0",
+        "#d3e2ff",
+        "#ffebd0",
+        "#d8ffdc",
+      ],
+      "safety-item": [
+        "linear-gradient(180deg, #d3e2ff 0%, #bfe9ff 100%)",
+        "linear-gradient(180deg, #ffebd0 0%, #ffdfb2 100%)",
+        "linear-gradient(180deg, #f0deff 0%, #dfb8ff 100%)",
+        "linear-gradient(180deg, #d8ffdc 0%, #bfffc5 100%)",
+        "linear-gradient(180deg, #d3d4ff 0%, #b5b7ff 100%)",
+        "linear-gradient(180deg, #ffd0d0 0%, #ffb1b1 100%)",
+        "linear-gradient(180deg, #ffebd0 0%, #ffdfb2 100%)",
+        "linear-gradient(180deg, #d8ffdc 0%, #bfffc5 100%)",
+        "linear-gradient(180deg, #d3e2ff 0%, #bfe9ff 100%)",
+      ],
+    };
+
+    function assignColorsToClass(className, colors) {
+      const items = document.querySelectorAll(`.${className}`);
+
+      // Сбрасываем цвета перед пересчетом
+      items.forEach((item) => {
+        item.style.background = "";
+      });
+
+      // Присваиваем цвета циклично
+      items.forEach((item, index) => {
+        const colorIndex = index % colors.length;
+        item.style.background = colors[colorIndex];
+      });
+    }
+
+    function assignColors() {
+      // Применяем цвета ко всем наборам классов
+      for (const [className, colors] of Object.entries(colorSets)) {
+        assignColorsToClass(className, colors);
+      }
+    }
+
+    // Выполнить при загрузке страницы
+    assignColors();
+
+    // Выполнить при изменении размера окна
+    window.addEventListener("resize", assignColors);
+  });
+
+  // Intersection Observer для fade-in
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Если это простой fade-in, добавляем show
+          if (entry.target.classList.contains('fade-in')) {
+            entry.target.classList.add('show');
+          }
+
+          // Если это fade-in-parent, обрабатываем дочерние элементы
+          if (entry.target.classList.contains('fade-in-parent')) {
+            const children = entry.target.querySelectorAll('.fade-in-child');
+            children.forEach((child, index) => {
+              // Добавляем задержку для дочерних элементов
+              child.style.transitionDelay = `${index * 0.2}s`;
+              child.classList.add('show');
+            });
+          }
+
+          // Перестаем отслеживать элемент после анимации
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  ); // Срабатывание при 10% видимости элемента
+
+  // Подключаем к нужным элементам
+  document.querySelectorAll('.fade-in, .fade-in-parent').forEach((el) => {
+    observer.observe(el);
+  });
+
+  // Анимация тегов
+  document.addEventListener("DOMContentLoaded", () => {
+    let activeAnimation = false; // Переменная для контроля активного состояния анимации
+    let animationIntervals = []; // Сохраняем интервалы для управления их отключением
+
+    function startAnimation() {
+      if (activeAnimation) return; // Если анимация уже запущена, выходим
+      activeAnimation = true;
+
+      const rows = document.querySelectorAll(".process__tags-row");
+
+      rows.forEach((row) => {
+        const isReversing = row.classList.contains("process__tags-row_right"); // Определяем направление движения
+        const rowWidth = row.scrollWidth; // Ширина строки
+        let position = isReversing ? -rowWidth : 0; // Начальная позиция
+
+        // Дублируем содержимое для бесконечной прокрутки
+        row.innerHTML += row.innerHTML;
+
+        function animate() {
+          if (isReversing) {
+            position += 1; // Движение вправо
+            if (position >= 0) {
+              position = -rowWidth; // Сбрасываем позицию
+            }
+          } else {
+            position -= 1; // Движение влево
+            if (Math.abs(position) >= rowWidth) {
+              position = 0; // Сбрасываем позицию
+            }
+          }
+
+          row.style.transform = `translateX(${position}px)`; // Применяем анимацию
+        }
+
+        // Устанавливаем интервал для анимации
+        const interval = setInterval(animate, 13); // 20ms для плавности
+        animationIntervals.push(interval); // Сохраняем интервал
+      });
+    }
+
+    function stopAnimation() {
+      if (!activeAnimation) return; // Если анимация уже отключена, выходим
+      activeAnimation = false;
+
+      // Очищаем все интервалы
+      animationIntervals.forEach((interval) => clearInterval(interval));
+      animationIntervals = []; // Сбрасываем список интервалов
+
+      // Сбрасываем стили transform для всех строк
+      const rows = document.querySelectorAll(".process__tags-row");
+      rows.forEach((row) => {
+        row.style.transform = "none";
+        row.innerHTML = row.innerHTML.slice(0, row.innerHTML.length / 2); // Убираем дублированный контент
+      });
+    }
+
+    function handleResize() {
+      if (window.innerWidth <= 1280) {
+        startAnimation(); // Запускаем анимацию на мобильных разрешениях
+      } else {
+        stopAnimation(); // Останавливаем анимацию на больших экранах
+      }
+    }
+
+    // Инициализация
+    handleResize();
+    window.addEventListener("resize", handleResize);
+  });
+
+</script>
