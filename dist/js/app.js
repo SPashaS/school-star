@@ -594,68 +594,6 @@
           (e.style.display = "none"), o(), (i = null);
         });
     }),
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll(".school-slider").forEach((e) => {
-        const t = e.querySelectorAll(".school-slider__slide"),
-          o = e.querySelector(".school-slider__arrow_prev"),
-          s = e.querySelector(".school-slider__arrow_next");
-        if (!t.length || !o || !s) return;
-        let n = 0;
-        const i = (e) => {
-          t.forEach((e) => e.classList.remove("is-active")),
-            t[e].classList.add("is-active");
-        };
-        o.addEventListener("click", () => {
-          (n = 0 === n ? t.length - 1 : n - 1), i(n);
-        }),
-          s.addEventListener("click", () => {
-            (n = n === t.length - 1 ? 0 : n + 1), i(n);
-          });
-      });
-    }),
-    document.addEventListener("DOMContentLoaded", () => {
-      const e = document.querySelector(".price__slider");
-      if (!e) return;
-      const t = e.querySelector(".price__track"),
-        o = e.querySelectorAll(".price-card"),
-        s = e.querySelector(".price__arrow_prev"),
-        n = e.querySelector(".price__arrow_next"),
-        i = e.querySelector(".price__counter-current"),
-        r = e.querySelector(".price__counter-total");
-      if (!(t && o.length && s && n && i && r)) return;
-      let l = 0;
-      r.textContent = o.length;
-      const a = () => {
-          const e = o[0],
-            s = window.getComputedStyle(t),
-            n = parseFloat(s.columnGap || s.gap) || 0;
-          return e.offsetWidth + n;
-        },
-        c = () => {
-          const e = a();
-          t.scrollTo({ left: l * e, behavior: "smooth" }),
-            (i.textContent = l + 1),
-            (s.disabled = 0 === l),
-            (n.disabled = l === o.length - 1);
-        };
-      s.addEventListener("click", () => {
-        0 !== l && ((l -= 1), c());
-      }),
-        n.addEventListener("click", () => {
-          l !== o.length - 1 && ((l += 1), c());
-        }),
-        t.addEventListener("scroll", () => {
-          const e = a(),
-            r = Math.round(t.scrollLeft / e);
-          r !== l &&
-            ((l = Math.max(0, Math.min(r, o.length - 1))),
-            (i.textContent = l + 1),
-            (s.disabled = 0 === l),
-            (n.disabled = l === o.length - 1));
-        }),
-        window.addEventListener("resize", c),
-        c();
-    }),
     (window.FLS = !0),
     (function () {
       let e = document.querySelector(".icon-menu"),
