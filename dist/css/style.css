@@ -602,7 +602,7 @@ body.popup-show::after {
 
 h1,
 h2 {
-  font-size: 3.2rem;
+  font-size: 3rem;
   line-height: 1.2;
   font-weight: 700;
   text-align: center;
@@ -3314,6 +3314,39 @@ h2 {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
+}
+.school-slider__bg picture {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.school-slider__placeholder, .school-slider__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+.school-slider__placeholder {
+  z-index: 0;
+}
+.school-slider__placeholder.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.school-slider__video {
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.school-slider__video.is-visible {
+  opacity: 1;
+  visibility: visible;
 }
 .school-slider__nav-wrapper {
   display: flex;
@@ -3347,22 +3380,18 @@ h2 {
     gap: 46px;
   }
 }
-.price__title {
-  text-align: left;
-  font-size: 4rem;
-  line-height: 1.1;
-}
-@media (min-width: 991.98px) {
-  .price__title {
-    font-size: 5.2rem;
-  }
-}
 .price__slider {
   width: 100%;
   min-width: 0;
   display: grid;
   gap: 22px;
   overflow: hidden;
+  padding: 0 20px;
+}
+@media (min-width: 767.98px) {
+  .price__slider {
+    padding: 0;
+  }
 }
 @media (min-width: 1279.98px) {
   .price__slider {
@@ -3371,6 +3400,7 @@ h2 {
 }
 .price__track {
   display: flex;
+  align-items: flex-start;
   gap: 20px;
   overflow-x: auto;
   overflow-y: hidden;
@@ -3378,6 +3408,8 @@ h2 {
   scroll-behavior: smooth;
   scrollbar-width: none;
   padding-bottom: 4px;
+  transition: height 0.25s ease;
+  -webkit-overflow-scrolling: touch;
 }
 .price__track::-webkit-scrollbar {
   display: none;
@@ -3402,55 +3434,109 @@ h2 {
   background: #fff;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   scroll-snap-align: start;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
-@media (min-width: 768px) {
+@media (min-width: 767.98px) {
   .price-card {
     flex-basis: calc((100% - 20px) / 2);
     padding: 25px 22px 26px;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 991.98px) {
   .price-card {
-    flex-basis: calc((100% - 80px) / 5);
     min-height: 470px;
-    padding: 22px 16px 24px;
-  }
-}
-@media (min-width: 1279.98px) {
-  .price-card {
+    flex-basis: calc((100% - 40px) / 3);
     padding: 25px 18px 26px;
   }
 }
+@media (min-width: 1279.98px) {
+  .price-card {
+    flex-basis: calc((100% - 80px) / 5);
+    padding: 22px 16px 24px;
+  }
+}
 .price-card__title {
+  text-align: center;
   margin-bottom: 18px;
   color: #173c72;
-  font-size: 1.8rem;
+  font-size: 2.5rem;
   line-height: 1.15;
   font-weight: 800;
 }
-@media (min-width: 1024px) {
+@media (min-width: 991.98px) {
   .price-card__title {
-    font-size: 1.55rem;
+    font-size: 2.7rem;
+  }
+}
+.price-card__subtitle {
+  width: 100%;
+  margin-bottom: 10px;
+  color: #173c72;
+  font-size: 1.55rem;
+  line-height: 1.2;
+  font-weight: 800;
+  text-align: center;
+}
+@media (min-width: 991.98px) {
+  .price-card__subtitle {
+    font-size: 1.3rem;
   }
 }
 @media (min-width: 1279.98px) {
-  .price-card__title {
-    font-size: 1.7rem;
+  .price-card__subtitle {
+    font-size: 1.45rem;
+  }
+}
+.price-card__section-title {
+  width: 100%;
+  margin-bottom: 8px;
+  color: #173c72;
+  font-size: 1.35rem;
+  line-height: 1.2;
+  font-weight: 800;
+  text-align: center;
+}
+@media (min-width: 991.98px) {
+  .price-card__section-title {
+    font-size: 1.12rem;
+  }
+}
+@media (min-width: 1279.98px) {
+  .price-card__section-title {
+    font-size: 1.22rem;
+  }
+}
+.price-card__text {
+  width: 100%;
+  margin-bottom: 14px;
+  color: #333;
+  font-size: 1.28rem;
+  line-height: 1.25;
+  text-align: center;
+}
+@media (min-width: 991.98px) {
+  .price-card__text {
+    font-size: 1.08rem;
+  }
+}
+@media (min-width: 1279.98px) {
+  .price-card__text {
+    font-size: 1.18rem;
   }
 }
 .price-card__time {
   margin-bottom: 16px;
   padding: 7px 12px;
-  border-radius: 100px;
   background: #f1f6ff;
   color: var(--accent-color);
   font-size: 1.4rem;
   line-height: 1.15;
   font-weight: 800;
 }
-@media (min-width: 1024px) {
+@media (min-width: 991.98px) {
   .price-card__time {
     font-size: 1.25rem;
   }
@@ -3468,7 +3554,7 @@ h2 {
   font-size: 1.35rem;
   line-height: 1.2;
 }
-@media (min-width: 1024px) {
+@media (min-width: 991.98px) {
   .price-card__list {
     font-size: 1.16rem;
     gap: 7px;
@@ -3492,43 +3578,47 @@ h2 {
   font-size: 15px;
   line-height: 1.05;
 }
-@media (min-width: 1024px) {
+@media (min-width: 991.98px) {
   .price-card__list li::before {
     font-size: 13px;
   }
 }
-.price-card__old-price {
-  margin-top: auto;
-  margin-bottom: 6px;
-  color: #9aa8c4;
-  font-size: 1.5rem;
-  line-height: 1;
-  text-decoration: line-through;
-  align-self: center;
-}
-@media (min-width: 1024px) {
-  .price-card__old-price {
-    font-size: 1.3rem;
-  }
-}
-.price-card__price {
+.price-card__prices {
   width: 100%;
+  margin-top: auto;
   margin-bottom: 18px;
-  color: #173c72;
-  font-size: 3.4rem;
-  line-height: 1;
-  font-weight: 800;
+  display: grid;
+  gap: 5px;
   text-align: center;
-  letter-spacing: -0.04em;
 }
-@media (min-width: 1024px) {
-  .price-card__price {
-    font-size: 2.8rem;
+.price-card__price-line {
+  color: #173c72;
+  font-size: 1.35rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+@media (min-width: 991.98px) {
+  .price-card__price-line {
+    font-size: 1.08rem;
   }
 }
 @media (min-width: 1279.98px) {
-  .price-card__price {
-    font-size: 3rem;
+  .price-card__price-line {
+    font-size: 1.18rem;
+  }
+}
+.price-card__price-line--bold {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+@media (min-width: 991.98px) {
+  .price-card__price-line--bold {
+    font-size: 1.8rem;
+  }
+}
+@media (min-width: 1279.98px) {
+  .price-card__price-line--bold {
+    font-size: 2.2rem;
   }
 }
 .price-card__btn {
@@ -3536,7 +3626,7 @@ h2 {
   border-radius: 0;
   font-size: 1.5rem;
 }
-@media (min-width: 1024px) {
+@media (min-width: 991.98px) {
   .price-card__btn {
     font-size: 1.35rem;
   }
