@@ -6,8 +6,8 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css?_v=20260622162645" />
-	<link rel="stylesheet" href="css/style.css?_v=20260622162645">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css?_v=20260630183720" />
+	<link rel="stylesheet" href="css/style.css?_v=20260630183720">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1151,58 +1151,137 @@
 		</div>
 	</div>
 	<!-- Swiper JS -->
-	<!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js?_v=20260622162645"></script> -->
-	<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js?_v=20260622162645"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js?_v=20260630183720"></script> -->
+	<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js?_v=20260630183720"></script> -->
 
-	<script src="js/app.min.js?_v=20260622162645"></script>
+	<script src="js/app.min.js?_v=20260630183720"></script>
 
 	<script>
+		// document.addEventListener("DOMContentLoaded", () => {
+		//   const video = document.querySelector(".hero__video");
+		//   const placeholder = document.querySelector(".hero__placeholder");
+
+		//   if (video && placeholder) {
+		//     // Убедимся, что видео скрыто, а placeholder видим
+		//     video.style.opacity = "0";
+		//     video.style.visibility = "hidden";
+
+		//     // Проверяем готовность видео
+		//     const onVideoReady = () => {
+		//       placeholder.style.opacity = "0"; // Скрываем placeholder
+		//       video.style.visibility = "visible";
+		//       video.style.opacity = "1";
+
+		//       // Попытка воспроизвести видео
+		//       video.play().catch((error) => {
+		//         console.warn("Не удалось воспроизвести видео автоматически:", error);
+		//       });
+		//     };
+
+		//     // Добавляем атрибуты, чтобы поддерживалось воспроизведение на iPhone
+		//     video.setAttribute("muted", "true");
+		//     video.setAttribute("playsinline", "true");
+
+		//     // Событие загрузки видео
+		//     video.addEventListener("loadeddata", onVideoReady);
+
+		//     // Фолбэк на случай, если событие не сработает
+		//     if (video.readyState >= 3) {
+		//       onVideoReady();
+		//     }
+
+		//     // Воспроизведение видео по клику, если autoplay не срабатывает
+		//     placeholder.addEventListener("click", () => {
+		//       placeholder.style.opacity = "0"; // Скрываем placeholder
+		//       video.style.visibility = "visible";
+		//       video.style.opacity = "1";
+
+		//       video.play().catch((error) => {
+		//         console.warn("Ошибка при попытке воспроизведения видео:", error);
+		//       });
+		//     });
+		//   } else {
+		//     console.error("Элементы .hero__video или .hero__placeholder не найдены.");
+		//   }
+		// });
+
+
 		document.addEventListener("DOMContentLoaded", () => {
-			const video = document.querySelector(".hero__video");
-			const placeholder = document.querySelector(".hero__placeholder");
+			const bgVideoBlocks = document.querySelectorAll("[data-bg-video]");
 
-			if (video && placeholder) {
-				// Убедимся, что видео скрыто, а placeholder видим
-				video.style.opacity = "0";
-				video.style.visibility = "hidden";
+			if (!bgVideoBlocks.length) return;
 
-				// Проверяем готовность видео
-				const onVideoReady = () => {
-					placeholder.style.opacity = "0"; // Скрываем placeholder
-					video.style.visibility = "visible";
-					video.style.opacity = "1";
+			bgVideoBlocks.forEach((block) => {
+				const video = block.querySelector(".js-bg-video");
+				const placeholder = block.querySelector(".js-bg-placeholder");
+				const slide = block.closest("[data-fade-slide]");
 
-					// Попытка воспроизвести видео
+				if (!video) return;
+
+				video.muted = true;
+				video.playsInline = true;
+				video.setAttribute("muted", "");
+				video.setAttribute("playsinline", "");
+
+				const showVideo = () => {
+					if (placeholder) {
+						placeholder.classList.add("is-hidden");
+					}
+
+					video.classList.add("is-visible");
+				};
+
+				const isSlideActive = () => {
+					if (!slide) return true;
+					return slide.classList.contains("is-active");
+				};
+
+				const playVideo = () => {
+					if (!isSlideActive()) {
+						video.pause();
+						return;
+					}
+
 					video.play().catch((error) => {
-						console.warn("Не удалось воспроизвести видео автоматически:", error);
+						console.warn("Не удалось автоматически запустить фоновое видео:", error);
 					});
 				};
 
-				// Добавляем атрибуты, чтобы поддерживалось воспроизведение на iPhone
-				video.setAttribute("muted", "true");
-				video.setAttribute("playsinline", "true");
+				const onVideoReady = () => {
+					showVideo();
+					playVideo();
+				};
 
-				// Событие загрузки видео
-				video.addEventListener("loadeddata", onVideoReady);
+				video.addEventListener("loadeddata", onVideoReady, {
+					once: true
+				});
 
-				// Фолбэк на случай, если событие не сработает
 				if (video.readyState >= 3) {
 					onVideoReady();
 				}
 
-				// Воспроизведение видео по клику, если autoplay не срабатывает
-				placeholder.addEventListener("click", () => {
-					placeholder.style.opacity = "0"; // Скрываем placeholder
-					video.style.visibility = "visible";
-					video.style.opacity = "1";
-
-					video.play().catch((error) => {
-						console.warn("Ошибка при попытке воспроизведения видео:", error);
+				if (placeholder) {
+					placeholder.addEventListener("click", () => {
+						showVideo();
+						playVideo();
 					});
-				});
-			} else {
-				console.error("Элементы .hero__video или .hero__placeholder не найдены.");
-			}
+				}
+
+				if (slide) {
+					const observer = new MutationObserver(() => {
+						if (isSlideActive()) {
+							playVideo();
+						} else {
+							video.pause();
+						}
+					});
+
+					observer.observe(slide, {
+						attributes: true,
+						attributeFilter: ["class"],
+					});
+				}
+			});
 		});
 
 		class CustomSlider {
@@ -1363,67 +1442,65 @@
 
 		new CustomSlider('.teachers__slider-wrapper', [767], [1], 0);
 
-		// new CustomSlider('.price__slider', [767, 1023, 99999], [1, 2, 5], 20);
-
 		new CustomSlider('.events__calendar-slider', [], [1], 0);
 
 
-		class FadeSlider {
-			constructor(root) {
-				this.root = root;
-				this.slides = Array.from(this.root.querySelectorAll('[data-fade-slide]'));
-				this.prevBtn = this.root.querySelector('[data-fade-prev]');
-				this.nextBtn = this.root.querySelector('[data-fade-next]');
-				this.currentIndex = 0;
+		// class FadeSlider {
+		//   constructor(root) {
+		//     this.root = root;
+		//     this.slides = Array.from(this.root.querySelectorAll('[data-fade-slide]'));
+		//     this.prevBtn = this.root.querySelector('[data-fade-prev]');
+		//     this.nextBtn = this.root.querySelector('[data-fade-next]');
+		//     this.currentIndex = 0;
 
-				if (!this.slides.length) return;
+		//     if (!this.slides.length) return;
 
-				this.init();
-			}
+		//     this.init();
+		//   }
 
-			init() {
-				const activeIndex = this.slides.findIndex((slide) => slide.classList.contains('is-active'));
+		//   init() {
+		//     const activeIndex = this.slides.findIndex((slide) => slide.classList.contains('is-active'));
 
-				this.currentIndex = activeIndex >= 0 ? activeIndex : 0;
-				this.showSlide(this.currentIndex);
+		//     this.currentIndex = activeIndex >= 0 ? activeIndex : 0;
+		//     this.showSlide(this.currentIndex);
 
-				if (this.prevBtn) {
-					this.prevBtn.addEventListener('click', () => this.moveSlide(-1));
-				}
+		//     if (this.prevBtn) {
+		//       this.prevBtn.addEventListener('click', () => this.moveSlide(-1));
+		//     }
 
-				if (this.nextBtn) {
-					this.nextBtn.addEventListener('click', () => this.moveSlide(1));
-				}
-			}
+		//     if (this.nextBtn) {
+		//       this.nextBtn.addEventListener('click', () => this.moveSlide(1));
+		//     }
+		//   }
 
-			moveSlide(direction) {
-				this.currentIndex += direction;
+		//   moveSlide(direction) {
+		//     this.currentIndex += direction;
 
-				if (this.currentIndex < 0) {
-					this.currentIndex = this.slides.length - 1;
-				}
+		//     if (this.currentIndex < 0) {
+		//       this.currentIndex = this.slides.length - 1;
+		//     }
 
-				if (this.currentIndex >= this.slides.length) {
-					this.currentIndex = 0;
-				}
+		//     if (this.currentIndex >= this.slides.length) {
+		//       this.currentIndex = 0;
+		//     }
 
-				this.showSlide(this.currentIndex);
-			}
+		//     this.showSlide(this.currentIndex);
+		//   }
 
-			showSlide(index) {
-				this.slides.forEach((slide) => {
-					slide.classList.remove('is-active');
-				});
+		//   showSlide(index) {
+		//     this.slides.forEach((slide) => {
+		//       slide.classList.remove('is-active');
+		//     });
 
-				this.slides[index].classList.add('is-active');
-			}
-		}
+		//     this.slides[index].classList.add('is-active');
+		//   }
+		// }
 
-		document.addEventListener('DOMContentLoaded', () => {
-			document.querySelectorAll('[data-fade-slider]').forEach((slider) => {
-				new FadeSlider(slider);
-			});
-		});
+		// document.addEventListener('DOMContentLoaded', () => {
+		//   document.querySelectorAll('[data-fade-slider]').forEach((slider) => {
+		//     new FadeSlider(slider);
+		//   });
+		// });
 
 
 		// class CardsSlider {
@@ -1595,6 +1672,539 @@
 		//   });
 		// });
 
+
+
+		class FadeSlider {
+			constructor(root) {
+				this.root = root;
+				this.slides = Array.from(this.root.querySelectorAll('[data-fade-slide]'));
+				this.prevBtn = this.root.querySelector('[data-fade-prev]');
+				this.nextBtn = this.root.querySelector('[data-fade-next]');
+				this.currentIndex = 0;
+
+				this.autoplayDelay = this.getAutoplayDelay();
+				this.autoplayTimer = null;
+
+				if (!this.slides.length) return;
+
+				this.init();
+			}
+
+			getAutoplayDelay() {
+				if (!this.root.hasAttribute('data-fade-autoplay')) {
+					return 0;
+				}
+
+				const value = Number(this.root.getAttribute('data-fade-autoplay'));
+
+				return Number.isFinite(value) && value > 0 ? value : 5000;
+			}
+
+			init() {
+				const activeIndex = this.slides.findIndex((slide) => slide.classList.contains('is-active'));
+
+				this.currentIndex = activeIndex >= 0 ? activeIndex : 0;
+				this.showSlide(this.currentIndex);
+
+				if (this.prevBtn) {
+					this.prevBtn.addEventListener('click', () => {
+						this.moveSlide(-1);
+						this.restartAutoplay();
+					});
+				}
+
+				if (this.nextBtn) {
+					this.nextBtn.addEventListener('click', () => {
+						this.moveSlide(1);
+						this.restartAutoplay();
+					});
+				}
+
+				this.initAutoplay();
+			}
+
+			moveSlide(direction) {
+				this.currentIndex += direction;
+
+				if (this.currentIndex < 0) {
+					this.currentIndex = this.slides.length - 1;
+				}
+
+				if (this.currentIndex >= this.slides.length) {
+					this.currentIndex = 0;
+				}
+
+				this.showSlide(this.currentIndex);
+			}
+
+			showSlide(index) {
+				this.slides.forEach((slide) => {
+					slide.classList.remove('is-active');
+				});
+
+				this.slides[index].classList.add('is-active');
+			}
+
+			initAutoplay() {
+				if (!this.autoplayDelay || this.slides.length < 2) return;
+
+				this.startAutoplay();
+
+				this.root.addEventListener('mouseenter', () => {
+					this.stopAutoplay();
+				});
+
+				this.root.addEventListener('mouseleave', () => {
+					this.startAutoplay();
+				});
+
+				document.addEventListener('visibilitychange', () => {
+					if (document.hidden) {
+						this.stopAutoplay();
+					} else {
+						this.startAutoplay();
+					}
+				});
+			}
+
+			startAutoplay() {
+				if (!this.autoplayDelay || this.slides.length < 2) return;
+
+				this.stopAutoplay();
+
+				this.autoplayTimer = setInterval(() => {
+					this.moveSlide(1);
+				}, this.autoplayDelay);
+			}
+
+			stopAutoplay() {
+				if (this.autoplayTimer) {
+					clearInterval(this.autoplayTimer);
+					this.autoplayTimer = null;
+				}
+			}
+
+			restartAutoplay() {
+				if (!this.autoplayDelay) return;
+
+				this.startAutoplay();
+			}
+		}
+
+		document.addEventListener('DOMContentLoaded', () => {
+			document.querySelectorAll('[data-fade-slider]').forEach((slider) => {
+				new FadeSlider(slider);
+			});
+		});
+
+
+		// class ScrollCardsSlider {
+		//   constructor(selector) {
+		//     this.slider = document.querySelector(selector);
+
+		//     if (!this.slider) return;
+
+		//     this.track = this.slider.querySelector('.price__track');
+		//     this.cards = Array.from(this.slider.querySelectorAll('.price-card'));
+		//     this.prevBtn = this.slider.querySelector('.slider-nav__btn--prev');
+		//     this.nextBtn = this.slider.querySelector('.slider-nav__btn--next');
+
+		//     if (!this.track || !this.cards.length || !this.prevBtn || !this.nextBtn) return;
+
+		//     this.init();
+		//   }
+
+		//   init() {
+		//     this.prevBtn.addEventListener('click', () => this.scroll(-1));
+		//     this.nextBtn.addEventListener('click', () => this.scroll(1));
+
+		//     this.track.addEventListener('scroll', () => this.updateButtons());
+		//     window.addEventListener('resize', () => this.updateButtons());
+
+		//     this.updateButtons();
+		//   }
+
+		//   getGap() {
+		//     const styles = window.getComputedStyle(this.track);
+		//     return parseFloat(styles.columnGap || styles.gap) || 0;
+		//   }
+
+		//   getStep() {
+		//     return this.cards[0].offsetWidth + this.getGap();
+		//   }
+
+		//   scroll(direction) {
+		//     this.track.scrollBy({
+		//       left: this.getStep() * direction,
+		//       behavior: 'smooth'
+		//     });
+		//   }
+
+		//   updateButtons() {
+		//     const maxScrollLeft = this.track.scrollWidth - this.track.clientWidth;
+		//     const currentScrollLeft = this.track.scrollLeft;
+
+		//     this.prevBtn.disabled = currentScrollLeft <= 2;
+		//     this.nextBtn.disabled = currentScrollLeft >= maxScrollLeft - 2;
+		//   }
+		// }
+
+		// document.addEventListener('DOMContentLoaded', () => {
+		//   new ScrollCardsSlider('.price__slider');
+		// });
+
+
+		// class ScrollCardsSlider {
+		// 	constructor(selector) {
+		// 		this.slider = document.querySelector(selector);
+
+		// 		if (!this.slider) return;
+
+		// 		this.track = this.slider.querySelector('.price__track');
+		// 		this.cards = Array.from(this.slider.querySelectorAll('.price-card'));
+		// 		this.prevBtn = this.slider.querySelector('.slider-nav__btn--prev');
+		// 		this.nextBtn = this.slider.querySelector('.slider-nav__btn--next');
+
+		// 		this.mobileMedia = window.matchMedia('(max-width: 767.98px)');
+		// 		this.resizeObserver = null;
+
+		// 		if (!this.track || !this.cards.length || !this.prevBtn || !this.nextBtn) return;
+
+		// 		this.init();
+		// 	}
+
+		// 	init() {
+		// 		this.prevBtn.addEventListener('click', () => this.scroll(-1));
+		// 		this.nextBtn.addEventListener('click', () => this.scroll(1));
+
+		// 		this.track.addEventListener('scroll', () => {
+		// 			this.updateButtons();
+		// 			this.updateAutoHeight();
+		// 		});
+
+		// 		window.addEventListener('resize', () => {
+		// 			this.updateButtons();
+		// 			this.updateAutoHeight();
+		// 		});
+
+		// 		if (this.mobileMedia.addEventListener) {
+		// 			this.mobileMedia.addEventListener('change', () => this.updateAutoHeight());
+		// 		}
+
+		// 		this.initResizeObserver();
+
+		// 		this.updateButtons();
+		// 		this.updateAutoHeight();
+
+		// 		window.addEventListener('load', () => {
+		// 			this.updateAutoHeight();
+		// 		});
+
+		// 		if (document.fonts) {
+		// 			document.fonts.ready.then(() => {
+		// 				this.updateAutoHeight();
+		// 			});
+		// 		}
+		// 	}
+
+		// 	getGap() {
+		// 		const styles = window.getComputedStyle(this.track);
+		// 		return parseFloat(styles.columnGap || styles.gap) || 0;
+		// 	}
+
+		// 	getStep() {
+		// 		return this.cards[0].offsetWidth + this.getGap();
+		// 	}
+
+		// 	getCurrentIndex() {
+		// 		const step = this.getStep();
+
+		// 		if (!step) return 0;
+
+		// 		const index = Math.round(this.track.scrollLeft / step);
+
+		// 		return Math.max(0, Math.min(index, this.cards.length - 1));
+		// 	}
+
+		// 	scroll(direction) {
+		// 		this.track.scrollBy({
+		// 			left: this.getStep() * direction,
+		// 			behavior: 'smooth'
+		// 		});
+
+		// 		setTimeout(() => {
+		// 			this.updateAutoHeight();
+		// 		}, 300);
+		// 	}
+
+		// 	updateButtons() {
+		// 		const maxScrollLeft = this.track.scrollWidth - this.track.clientWidth;
+		// 		const currentScrollLeft = this.track.scrollLeft;
+
+		// 		this.prevBtn.disabled = currentScrollLeft <= 2;
+		// 		this.nextBtn.disabled = currentScrollLeft >= maxScrollLeft - 2;
+		// 	}
+
+		// 	updateAutoHeight() {
+		// 		if (!this.mobileMedia.matches) {
+		// 			this.track.style.height = '';
+		// 			return;
+		// 		}
+
+		// 		const currentCard = this.cards[this.getCurrentIndex()];
+
+		// 		if (!currentCard) return;
+
+		// 		this.track.style.height = `${currentCard.offsetHeight + 4}px`;
+		// 	}
+
+		// 	initResizeObserver() {
+		// 		if (!window.ResizeObserver) return;
+
+		// 		this.resizeObserver = new ResizeObserver(() => {
+		// 			this.updateAutoHeight();
+		// 		});
+
+		// 		this.cards.forEach((card) => {
+		// 			this.resizeObserver.observe(card);
+		// 		});
+		// 	}
+		// }
+
+		// document.addEventListener('DOMContentLoaded', () => {
+		// 	new ScrollCardsSlider('.price__slider');
+		// });
+
+		// class ScrollCardsSlider {
+		//   constructor(selector) {
+		//     this.slider = document.querySelector(selector);
+
+		//     if (!this.slider) return;
+
+		//     this.track = this.slider.querySelector('.price__track');
+		//     this.cards = Array.from(this.slider.querySelectorAll('.price-card'));
+		//     this.prevBtn = this.slider.querySelector('.slider-nav__btn--prev');
+		//     this.nextBtn = this.slider.querySelector('.slider-nav__btn--next');
+
+		//     this.mobileMedia = window.matchMedia('(max-width: 767.98px)');
+		//     this.resizeObserver = null;
+
+		//     this.touchStartIndex = 0;
+		//     this.touchStartX = 0;
+		//     this.touchStartScrollLeft = 0;
+		//     this.snapTimer = null;
+
+		//     this.scrollTopOffset = 90;
+
+		//     if (!this.track || !this.cards.length || !this.prevBtn || !this.nextBtn) return;
+
+		//     this.init();
+		//   }
+
+		//   init() {
+		//     this.prevBtn.addEventListener('click', () => this.scroll(-1));
+		//     this.nextBtn.addEventListener('click', () => this.scroll(1));
+
+		//     this.track.addEventListener('scroll', () => {
+		//       this.updateButtons();
+		//       this.updateAutoHeight();
+
+		//       if (this.mobileMedia.matches) {
+		//         this.scheduleSnapToSlide();
+		//       }
+		//     });
+
+		//     this.track.addEventListener('touchstart', (e) => {
+		//       if (!this.mobileMedia.matches) return;
+
+		//       this.touchStartIndex = this.getCurrentIndex();
+		//       this.touchStartX = e.touches[0].clientX;
+		//       this.touchStartScrollLeft = this.track.scrollLeft;
+
+		//       clearTimeout(this.snapTimer);
+		//     }, { passive: true });
+
+		//     this.track.addEventListener('touchend', (e) => {
+		//       if (!this.mobileMedia.matches) return;
+
+		//       const touchEndX = e.changedTouches[0].clientX;
+		//       const diffX = this.touchStartX - touchEndX;
+		//       const threshold = 45;
+
+		//       let targetIndex = this.touchStartIndex;
+
+		//       if (Math.abs(diffX) > threshold) {
+		//         targetIndex = diffX > 0
+		//           ? this.touchStartIndex + 1
+		//           : this.touchStartIndex - 1;
+		//       } else {
+		//         targetIndex = this.getCurrentIndex();
+		//       }
+
+		//       this.goToSlide(targetIndex);
+
+		//       setTimeout(() => {
+		//         this.scrollPageToSliderTop();
+		//       }, 250);
+		//     }, { passive: true });
+
+		//     window.addEventListener('resize', () => {
+		//       this.updateButtons();
+		//       this.updateAutoHeight();
+		//       this.goToSlide(this.getCurrentIndex(), false);
+		//     });
+
+		//     if (this.mobileMedia.addEventListener) {
+		//       this.mobileMedia.addEventListener('change', () => {
+		//         this.updateAutoHeight();
+		//         this.goToSlide(this.getCurrentIndex(), false);
+		//       });
+		//     } else {
+		//       this.mobileMedia.addListener(() => {
+		//         this.updateAutoHeight();
+		//         this.goToSlide(this.getCurrentIndex(), false);
+		//       });
+		//     }
+
+		//     this.initResizeObserver();
+
+		//     this.updateButtons();
+		//     this.updateAutoHeight();
+
+		//     window.addEventListener('load', () => {
+		//       this.updateButtons();
+		//       this.updateAutoHeight();
+		//       this.goToSlide(this.getCurrentIndex(), false);
+		//     });
+
+		//     if (document.fonts) {
+		//       document.fonts.ready.then(() => {
+		//         this.updateButtons();
+		//         this.updateAutoHeight();
+		//         this.goToSlide(this.getCurrentIndex(), false);
+		//       });
+		//     }
+		//   }
+
+		//   getGap() {
+		//     const styles = window.getComputedStyle(this.track);
+		//     return parseFloat(styles.columnGap || styles.gap) || 0;
+		//   }
+
+		//   getStep() {
+		//     if (!this.cards[0]) return 0;
+
+		//     return this.cards[0].offsetWidth + this.getGap();
+		//   }
+
+		//   getCurrentIndex() {
+		//     const step = this.getStep();
+
+		//     if (!step) return 0;
+
+		//     const index = Math.round(this.track.scrollLeft / step);
+
+		//     return Math.max(0, Math.min(index, this.cards.length - 1));
+		//   }
+
+		//   getSlideLeft(index) {
+		//     const step = this.getStep();
+
+		//     return step * index;
+		//   }
+
+		//   goToSlide(index, smooth = true) {
+		//     let targetIndex = index;
+
+		//     if (targetIndex < 0) {
+		//       targetIndex = 0;
+		//     }
+
+		//     if (targetIndex >= this.cards.length) {
+		//       targetIndex = this.cards.length - 1;
+		//     }
+
+		//     this.track.scrollTo({
+		//       left: this.getSlideLeft(targetIndex),
+		//       behavior: smooth ? 'smooth' : 'auto'
+		//     });
+
+		//     setTimeout(() => {
+		//       this.updateButtons();
+		//       this.updateAutoHeight();
+		//     }, smooth ? 250 : 0);
+		//   }
+
+		//   scroll(direction) {
+		//     const currentIndex = this.getCurrentIndex();
+		//     const targetIndex = currentIndex + direction;
+
+		//     this.goToSlide(targetIndex);
+
+		//     setTimeout(() => {
+		//       this.scrollPageToSliderTop();
+		//     }, 250);
+		//   }
+
+		//   scheduleSnapToSlide() {
+		//     clearTimeout(this.snapTimer);
+
+		//     this.snapTimer = setTimeout(() => {
+		//       this.goToSlide(this.getCurrentIndex());
+		//     }, 180);
+		//   }
+
+		//   scrollPageToSliderTop() {
+		//     if (!this.mobileMedia.matches) return;
+
+		//     const trackTop = this.track.getBoundingClientRect().top;
+		//     const targetTop = window.pageYOffset + trackTop - this.scrollTopOffset;
+
+		//     window.scrollTo({
+		//       top: targetTop,
+		//       behavior: 'smooth'
+		//     });
+		//   }
+
+		//   updateButtons() {
+		//     const maxScrollLeft = this.track.scrollWidth - this.track.clientWidth;
+		//     const currentScrollLeft = this.track.scrollLeft;
+
+		//     this.prevBtn.disabled = currentScrollLeft <= 2;
+		//     this.nextBtn.disabled = currentScrollLeft >= maxScrollLeft - 2;
+		//   }
+
+		//   updateAutoHeight() {
+		//     if (!this.mobileMedia.matches) {
+		//       this.track.style.height = '';
+		//       return;
+		//     }
+
+		//     const currentCard = this.cards[this.getCurrentIndex()];
+
+		//     if (!currentCard) return;
+
+		//     this.track.style.height = `${currentCard.offsetHeight + 4}px`;
+		//   }
+
+		//   initResizeObserver() {
+		//     if (!window.ResizeObserver) return;
+
+		//     this.resizeObserver = new ResizeObserver(() => {
+		//       this.updateAutoHeight();
+		//     });
+
+		//     this.cards.forEach((card) => {
+		//       this.resizeObserver.observe(card);
+		//     });
+		//   }
+		// }
+
+		// document.addEventListener('DOMContentLoaded', () => {
+		//   new ScrollCardsSlider('.price__slider');
+		// });
+
+
 		class ScrollCardsSlider {
 			constructor(selector) {
 				this.slider = document.querySelector(selector);
@@ -1606,6 +2216,16 @@
 				this.prevBtn = this.slider.querySelector('.slider-nav__btn--prev');
 				this.nextBtn = this.slider.querySelector('.slider-nav__btn--next');
 
+				this.mobileMedia = window.matchMedia('(max-width: 767.98px)');
+				this.resizeObserver = null;
+
+				this.touchStartIndex = 0;
+				this.touchStartX = 0;
+				this.touchStartScrollLeft = 0;
+				this.snapTimer = null;
+
+				this.scrollTopOffset = 90;
+
 				if (!this.track || !this.cards.length || !this.prevBtn || !this.nextBtn) return;
 
 				this.init();
@@ -1615,10 +2235,89 @@
 				this.prevBtn.addEventListener('click', () => this.scroll(-1));
 				this.nextBtn.addEventListener('click', () => this.scroll(1));
 
-				this.track.addEventListener('scroll', () => this.updateButtons());
-				window.addEventListener('resize', () => this.updateButtons());
+				this.track.addEventListener('scroll', () => {
+					this.updateButtons();
+					this.updateAutoHeight();
+
+					if (this.mobileMedia.matches) {
+						this.scheduleSnapToSlide();
+					}
+				});
+
+				this.track.addEventListener('touchstart', (e) => {
+					if (!this.mobileMedia.matches) return;
+
+					this.touchStartIndex = this.getCurrentIndex();
+					this.touchStartX = e.touches[0].clientX;
+					this.touchStartScrollLeft = this.track.scrollLeft;
+
+					clearTimeout(this.snapTimer);
+				}, {
+					passive: true
+				});
+
+				this.track.addEventListener('touchend', (e) => {
+					if (!this.mobileMedia.matches) return;
+
+					const touchEndX = e.changedTouches[0].clientX;
+					const diffX = this.touchStartX - touchEndX;
+					const threshold = 45;
+
+					let targetIndex = this.touchStartIndex;
+
+					if (Math.abs(diffX) > threshold) {
+						targetIndex = diffX > 0 ?
+							this.touchStartIndex + 1 :
+							this.touchStartIndex - 1;
+					} else {
+						targetIndex = this.getCurrentIndex();
+					}
+
+					this.goToSlide(targetIndex);
+
+					setTimeout(() => {
+						this.scrollPageToSliderTop();
+					}, 250);
+				}, {
+					passive: true
+				});
+
+				window.addEventListener('resize', () => {
+					this.updateButtons();
+					this.updateAutoHeight();
+					this.goToSlide(this.getCurrentIndex(), false);
+				});
+
+				if (this.mobileMedia.addEventListener) {
+					this.mobileMedia.addEventListener('change', () => {
+						this.updateAutoHeight();
+						this.goToSlide(this.getCurrentIndex(), false);
+					});
+				} else {
+					this.mobileMedia.addListener(() => {
+						this.updateAutoHeight();
+						this.goToSlide(this.getCurrentIndex(), false);
+					});
+				}
+
+				this.initResizeObserver();
 
 				this.updateButtons();
+				this.updateAutoHeight();
+
+				window.addEventListener('load', () => {
+					this.updateButtons();
+					this.updateAutoHeight();
+					this.goToSlide(this.getCurrentIndex(), false);
+				});
+
+				if (document.fonts) {
+					document.fonts.ready.then(() => {
+						this.updateButtons();
+						this.updateAutoHeight();
+						this.goToSlide(this.getCurrentIndex(), false);
+					});
+				}
 			}
 
 			getGap() {
@@ -1627,12 +2326,76 @@
 			}
 
 			getStep() {
+				if (!this.cards[0]) return 0;
+
 				return this.cards[0].offsetWidth + this.getGap();
 			}
 
+			getCurrentIndex() {
+				const step = this.getStep();
+
+				if (!step) return 0;
+
+				const index = Math.round(this.track.scrollLeft / step);
+
+				return Math.max(0, Math.min(index, this.cards.length - 1));
+			}
+
+			getSlideLeft(index) {
+				const step = this.getStep();
+
+				return step * index;
+			}
+
+			goToSlide(index, smooth = true) {
+				let targetIndex = index;
+
+				if (targetIndex < 0) {
+					targetIndex = 0;
+				}
+
+				if (targetIndex >= this.cards.length) {
+					targetIndex = this.cards.length - 1;
+				}
+
+				this.track.scrollTo({
+					left: this.getSlideLeft(targetIndex),
+					behavior: smooth ? 'smooth' : 'auto'
+				});
+
+				setTimeout(() => {
+					this.updateButtons();
+					this.updateAutoHeight();
+				}, smooth ? 250 : 0);
+			}
+
 			scroll(direction) {
-				this.track.scrollBy({
-					left: this.getStep() * direction,
+				const currentIndex = this.getCurrentIndex();
+				const targetIndex = currentIndex + direction;
+
+				this.goToSlide(targetIndex);
+
+				setTimeout(() => {
+					this.scrollPageToSliderTop();
+				}, 250);
+			}
+
+			scheduleSnapToSlide() {
+				clearTimeout(this.snapTimer);
+
+				this.snapTimer = setTimeout(() => {
+					this.goToSlide(this.getCurrentIndex());
+				}, 180);
+			}
+
+			scrollPageToSliderTop() {
+				if (!this.mobileMedia.matches) return;
+
+				const trackTop = this.track.getBoundingClientRect().top;
+				const targetTop = window.pageYOffset + trackTop - this.scrollTopOffset;
+
+				window.scrollTo({
+					top: targetTop,
 					behavior: 'smooth'
 				});
 			}
@@ -1643,6 +2406,31 @@
 
 				this.prevBtn.disabled = currentScrollLeft <= 2;
 				this.nextBtn.disabled = currentScrollLeft >= maxScrollLeft - 2;
+			}
+
+			updateAutoHeight() {
+				if (!this.mobileMedia.matches) {
+					this.track.style.height = '';
+					return;
+				}
+
+				const currentCard = this.cards[this.getCurrentIndex()];
+
+				if (!currentCard) return;
+
+				this.track.style.height = `${currentCard.offsetHeight + 4}px`;
+			}
+
+			initResizeObserver() {
+				if (!window.ResizeObserver) return;
+
+				this.resizeObserver = new ResizeObserver(() => {
+					this.updateAutoHeight();
+				});
+
+				this.cards.forEach((card) => {
+					this.resizeObserver.observe(card);
+				});
 			}
 		}
 
