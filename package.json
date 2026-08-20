@@ -22,9 +22,10 @@
 		"css-loader": "latest",
 		"del": "^7.0.0",
 		"file-include-webpack-plugin-replace": "latest",
-		"gulp": "latest",
+		"gulp": "5.0.1",
 		"gulp-autoprefixer": "latest",
 		"gulp-clean-css": "latest",
+		"gulp-cli": "3.1.0",
 		"gulp-fonter": "latest",
 		"gulp-group-css-media-queries": "latest",
 		"gulp-if": "latest",
@@ -36,7 +37,6 @@
 		"gulp-rename": "latest",
 		"gulp-svg-sprite": "latest",
 		"gulp-ttf2woff": "latest",
-		"gulp-ttf2woff2": "latest",
 		"gulp-util": "latest",
 		"gulp-version-number": "latest",
 		"gulp-webp": "latest",
@@ -60,6 +60,7 @@
 		"terser-webpack-plugin": "latest",
 		"tippy.js": "latest",
 		"transform-runtime": "0.0.0",
+		"ttf2woff2": "8.0.1",
 		"vanilla-lazyload": "latest",
 		"vinyl-ftp": "latest",
 		"webp-converter": "2.2.3",
@@ -70,5 +71,11 @@
 	},
 	"dependencies": {
 		"simplebar": "latest"
+	},
+	"allowScripts": {
+		"ttf2woff2@8.0.1": true
+	},
+	"engines": {
+		"node": ">=20.11 <25"
 	}
 }

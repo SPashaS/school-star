@@ -26,7 +26,7 @@ $maxWidth: 1920;
 
 // $maxWidthMob: 480;
 // Ширина ограничивающего контейнера (0 = нет ограничения)
-$maxWidthContainer: 1440;
+$maxWidthContainer: 1480;
 // Общий отступ у контейнера
 // (30 = по 15px слева и справа, 0 = нет отступа)
 $containerPadding: 40;
@@ -122,7 +122,7 @@ body {
 	[class*="__container"] {
 		@if ($maxWidthContainer>0) {
 			max-width: $maxWidthContainer+px;
-			box-sizing: content-box;
+			// box-sizing: content-box;
 			margin: 0 auto;
 		}
 
@@ -139,7 +139,7 @@ body {
 	// По брейк-поинтам
 	[class*="__container"] {
 		margin: 0 auto;
-		box-sizing: content-box;
+		// box-sizing: content-box;
 		max-width: 340px;
 
 		@if ($containerPadding>0) {
@@ -220,3 +220,4 @@ body {
 
 // Подключение стилей отдельных страниц
 @import "home";
+@import "prodlenka";

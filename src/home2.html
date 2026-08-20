@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('html/_head.htm',{
+"title":"School-star - главная"
+})
+
+<body>
+	<div class="wrapper">
+		@@include('html/_header.htm',{})
+		<main class="page">
+
+
+			<!-- <section class="hero">
+				<div class="hero__container fade-in-parent">
+					<h1 class="hero__title fade-in-child">Частная начальная школа British Star в центре Сочи</h1>
+					<p class="hero__text fade-in-child">Ваши дети будут получать частное образование с 1 по 4 класс и оно лучше
+						чем
+						общеобразовательное!</p>
+					<a href="#" class="hero__btn btn fade-in" data-popup="#sing-up">ЗАПИСАТЬСЯ</a>
+					<a href="#" class="hero__btn btn fade-in" data-popup="#thanks">Спасибо</a>
+				</div>
+				<div class="hero__img hero__img-ibg">
+					<picture>
+						<source media="(min-width: 1280px)" srcset="@img/hero/bg-pc.jpg">
+						<source media="(min-width: 768px)" srcset="@img/hero/bg-tab.jpg">
+						<img src="@img/hero/bg.jpg" loading="lazy" alt="" class="hero__placeholder">
+					</picture>
+					<video class="hero__video" muted loop playsinline preload="auto">
+						<source src="@img/video.mp4" type="video/mp4">
+					</video>
+				</div>
+			</section> -->
+
+			<section class="school-slider">
+				<div class="school-slider__wrapper" data-fade-slider data-fade-autoplay="10000">
+					<div class="school-slider__track">
+
+
+						<!-- Слайд 2 -->
+						<div class="school-slider__slide school-slider__slide_bg is-active" data-fade-slide>
+							<div class="school-slider__bg school-slider__bg-ibg" data-bg-video>
+								<picture>
+									<img src="@img/slider/3.webp" loading="lazy" alt="Открыт набор с 0-го по 6 классы"
+										class="school-slider__placeholder js-bg-placeholder">
+								</picture>
+
+								<video class="school-slider__video js-bg-video" muted loop playsinline preload="metadata"
+									poster="@img/slider/3.webp">
+									<source src="@img/video.mp4" type="video/mp4">
+								</video>
+							</div>
+
+							<div class="school-slider__container">
+								<div class="school-slider__content">
+									<h2 class="school-slider__title">
+										Открыт набор с 0-го по 6 классы
+									</h2>
+
+									<div class="school-slider__list">
+										<span>Математика</span>
+										<span>Английский язык</span>
+										<span>Китайский язык</span>
+									</div>
+
+									<div class="school-slider__text">
+										Абонементы: базовый, расширенный, полный
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<!-- Слайд 1 -->
+						<div class="school-slider__slide school-slider__slide_side" data-fade-slide>
+							<div class="school-slider__container">
+								<div class="school-slider__content">
+									<h2 class="school-slider__title">
+										Частная школа
+									</h2>
+
+									<div class="school-slider__directions">
+										С углублённым изучением:
+									</div>
+
+									<div class="school-slider__list">
+										<span>Математики</span>
+										<span>Английского языка</span>
+									</div>
+
+									<div class="school-slider__text">
+										Абонементы на полный и неполный день
+									</div>
+
+									<div class="school-slider__text">
+										Набор 0–6 классы
+									</div>
+								</div>
+
+								<div class="school-slider__img school-slider__img-ibg">
+									<img src="@img/slider/1.webp" loading="lazy" alt="Частная школа">
+								</div>
+							</div>
+						</div>
+
+
+						<!-- Слайд 3 -->
+						<div class="school-slider__slide school-slider__slide_side" data-fade-slide>
+							<div class="school-slider__container">
+								<div class="school-slider__content">
+									<div class="school-slider__subtitle">
+										Летний клуб
+									</div>
+
+									<h2 class="school-slider__title">
+										Звёздный старт
+									</h2>
+
+									<div class="school-slider__directions">
+										Группы 6–8 лет и 9–12 лет
+									</div>
+
+									<div class="school-slider__text">
+										Экскурсии и выезды, мастер-классы и квесты
+									</div>
+								</div>
+
+								<div class="school-slider__img school-slider__img-ibg">
+									<img src="@img/slider/2.webp" loading="lazy" alt="Летний клуб Звёздный старт">
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="school-slider__nav-wrapper">
+						<div class="school-slider__nav slider-nav slider-nav--bg">
+							<button class="slider-btn slider-btn_prev" type="button" aria-label="Предыдущий слайд"
+								data-fade-prev></button>
+							<button class="slider-btn slider-btn_next" type="button" aria-label="Следующий слайд"
+								data-fade-next></button>
+						</div>
+					</div>
+
+
+
+
+				</div>
+			</section>
+
+			<section class="price" id="price">
+				<div class="price__container">
+					<h2 class="price__title">Стоимость обучения</h2>
+
+					<div class="price__slider cards-slider">
+						<div class="price__track">
+
+							<!-- 1 слайд -->
+							<div class="price-card">
+								<h3 class="price-card__title">Базовый</h3>
+
+								<div class="price-card__time">
+									1-6 ступени<br>
+									1 ступень: 8:00 - 13:00<br>
+									2-4 ступени: 8:00 - 13:30<br>
+									5-6 ступени: 8:00 - 14:30
+								</div>
+
+								<div class="price-card__section-title">
+									Основная программа,<br>
+									предметное обучение:
+								</div>
+
+								<p class="price-card__text">
+									математика, русский язык, английский язык, литературное чтение, труд,
+									окружающий мир, физическая культура, изобразительное искусство,
+									музыка, логика, проектная деятельность.
+								</p>
+
+								<p class="price-card__text">
+									<strong>С 3 ступени:</strong> китайский язык.<br>
+									<strong>С 5 ступени:</strong> география, история, биология.
+								</p>
+
+								<ul class="price-card__list">
+									<li>Завтрак и обед.</li>
+									<li>Прогулка.</li>
+									<li>Тематические недели.</li>
+									<li>Клуб на учебных каникулах. Время в рамках своей ступени.</li>
+									<li>Клуб на каникулах в летнее время 4 недели. Время в рамках своей ступени.</li>
+								</ul>
+
+								<div class="price-card__prices">
+									<div class="price-card__price-line">50 000 ₽ в месяц / 9 платежей</div>
+									<div class="price-card__price-line">45 000 ₽ в месяц / 10 платежей</div>
+									<div class="price-card__price-line price-card__price-line--bold">450 000 ₽ в год</div>
+								</div>
+
+								<a href="#" class="price-card__btn btn">Записаться</a>
+							</div>
+
+							<!-- 2 слайд -->
+							<div class="price-card">
+								<h3 class="price-card__title">Расширенный</h3>
+
+								<div class="price-card__time">
+									1-6 ступени<br>
+									1 ступень: 8:00 - 14:00<br>
+									2-4 ступени: 8:00 - 14:30<br>
+									5-6 ступени: 8:00 - 15:30
+								</div>
+
+								<div class="price-card__section-title">
+									Основная программа,<br>
+									предметное обучение:
+								</div>
+
+								<p class="price-card__text">
+									математика, русский язык, английский язык, литературное чтение, труд,
+									окружающий мир, физическая культура, изобразительное искусство,
+									музыка, логика, проектная деятельность.
+								</p>
+
+								<p class="price-card__text">
+									<strong>С 3 ступени:</strong> китайский язык.<br>
+									<strong>С 5 ступени:</strong> география, история, биология.
+								</p>
+
+								<ul class="price-card__list">
+									<li>Завтрак и обед.</li>
+									<li>Прогулка.</li>
+									<li>Тематические недели.</li>
+									<li>Клуб на учебных каникулах. Время в рамках своей ступени.</li>
+									<li>Клуб на каникулах в летнее время 4 недели. Время в рамках своей ступени.</li>
+									<li>Разбор и выполнение домашних заданий.</li>
+									<li>5 индивидуальных занятий, компенсация пробелов знаний в модуле.</li>
+									<li>Защита проектов.</li>
+								</ul>
+
+								<div class="price-card__prices">
+									<div class="price-card__price-line">61 100 ₽ в месяц / 9 платежей</div>
+									<div class="price-card__price-line">55 000 ₽ в месяц / 10 платежей</div>
+									<div class="price-card__price-line price-card__price-line--bold">550 000 ₽ в год</div>
+								</div>
+
+								<a href="#" class="price-card__btn btn">Записаться</a>
+							</div>
+
+							<!-- 3 слайд -->
+							<div class="price-card">
+								<h3 class="price-card__title">Полный</h3>
+
+								<div class="price-card__time">
+									1-6 ступени<br>
+									8:00 - 17:00 (18:00)
+								</div>
+
+								<div class="price-card__section-title">
+									Основная программа,<br>
+									предметное обучение:
+								</div>
+
+								<p class="price-card__text">
+									математика, русский язык, английский язык, литературное чтение, труд,
+									окружающий мир, физическая культура, изобразительное искусство,
+									музыка, логика, проектная деятельность.
+								</p>
+
+								<p class="price-card__text">
+									<strong>С 3 ступени:</strong> китайский язык.<br>
+									<strong>С 5 ступени:</strong> география, история, биология.
+								</p>
+
+								<ul class="price-card__list">
+									<li>Завтрак, обед, полдник.</li>
+									<li>Прогулка.</li>
+									<li>Тематические недели.</li>
+									<li>Клуб на учебных каникулах.</li>
+									<li>Клуб на каникулах в летнее время 4 недели.</li>
+									<li>Разбор и выполнение домашних заданий.</li>
+									<li>5 индивидуальных занятий, компенсация пробелов знаний в модуле.</li>
+									<li>Защита проектов.</li>
+								</ul>
+
+								<div class="price-card__section-title">
+									Дополнительные занятия по блокам, по расписанию:
+								</div>
+
+								<ul class="price-card__list">
+									<li>Аэройога в гамаках.</li>
+									<li>Робототехника.</li>
+									<li>IT-программирование.</li>
+									<li>Шахматы.</li>
+									<li>Инженеринг.</li>
+									<li>Творческая мастерская.</li>
+									<li>Английский клуб.</li>
+									<li>Олимпиадная математика.</li>
+									<li>Мастер-классы.</li>
+									<li>Финансовая грамотность.</li>
+									<li>Эмоциональный интеллект.</li>
+								</ul>
+
+								<div class="price-card__prices">
+									<div class="price-card__price-line">72 230 ₽ в месяц / 9 платежей</div>
+									<div class="price-card__price-line">65 000 ₽ в месяц / 10 платежей</div>
+									<div class="price-card__price-line price-card__price-line--bold">650 000 ₽ в год до 17:00</div>
+									<div class="price-card__price-line">74 440 ₽ в месяц / 9 платежей</div>
+									<div class="price-card__price-line">67 000 ₽ в месяц / 10 платежей</div>
+									<div class="price-card__price-line price-card__price-line--bold">670 000 ₽ в год до 18:00</div>
+								</div>
+
+								<a href="#" class="price-card__btn btn">Записаться</a>
+							</div>
+
+							<!-- 4 слайд -->
+							<div class="price-card">
+								<h3 class="price-card__title">Базовый</h3>
+
+								<div class="price-card__subtitle">
+									Для дошкольников 6-7 лет
+								</div>
+
+								<div class="price-card__time">8:30 - 13:00</div>
+
+								<div class="price-card__section-title">
+									Основная программа подготовки к школе:
+								</div>
+
+								<ul class="price-card__list">
+									<li>Чтение.</li>
+									<li>Счет и логика.</li>
+									<li>Изучение грамоты.</li>
+									<li>Окружающий мир.</li>
+									<li>Творческая мастерская.</li>
+									<li>Английский язык.</li>
+								</ul>
+
+								<ul class="price-card__list">
+									<li>Завтрак и обед.</li>
+									<li>Прогулка.</li>
+									<li>Тематические недели.</li>
+									<li>Клуб на учебных каникулах.</li>
+								</ul>
+
+								<div class="price-card__prices">
+									<div class="price-card__price-line price-card__price-line--bold">33 000 ₽ в месяц</div>
+								</div>
+
+								<a href="#" class="price-card__btn btn">Записаться</a>
+							</div>
+
+							<!-- 5 слайд -->
+							<div class="price-card">
+								<h3 class="price-card__title">Полный</h3>
+
+								<div class="price-card__subtitle">
+									Для дошкольников 6-7 лет
+								</div>
+
+								<div class="price-card__time">8:30 - 17:00</div>
+
+								<div class="price-card__section-title">
+									Основная программа подготовки к школе:
+								</div>
+
+								<ul class="price-card__list">
+									<li>Чтение.</li>
+									<li>Счет и логика.</li>
+									<li>Изучение грамоты.</li>
+									<li>Окружающий мир.</li>
+									<li>Творческая мастерская.</li>
+									<li>Английский язык.</li>
+								</ul>
+
+								<ul class="price-card__list">
+									<li>Завтрак, обед и полдник.</li>
+									<li>Прогулка.</li>
+									<li>Тематические недели.</li>
+									<li>Клуб на учебных каникулах.</li>
+								</ul>
+
+								<div class="price-card__section-title">
+									Дополнительные занятия:
+								</div>
+
+								<ul class="price-card__list">
+									<li>Аэройога в гамаках.</li>
+									<li>Робототехника.</li>
+									<li>Шахматы.</li>
+									<li>Мастер-классы.</li>
+									<li>Эмоциональный интеллект.</li>
+								</ul>
+
+								<div class="price-card__prices">
+									<div class="price-card__price-line price-card__price-line--bold">48 000 ₽ в месяц</div>
+								</div>
+
+								<a href="#" class="price-card__btn btn">Записаться</a>
+							</div>
+
+							<!-- 6 слайд -->
+							<div class="price-card">
+								<h3 class="price-card__title">Группа продленного дня</h3>
+
+								<div class="price-card__subtitle">
+									Для школьников 1-4 ступени
+								</div>
+
+								<div class="price-card__time">12:00 - 17:00 (18:00)</div>
+
+								<div class="price-card__section-title">Основная программа:</div>
+
+								<p class="price-card__text">
+									Организация выполнения домашних заданий.<br>
+									Развивающие и творческие занятия по расписанию.
+								</p>
+
+								<ul class="price-card__list">
+									<li>Обед и полдник.</li>
+									<li>Прогулка.</li>
+									<li>Тематические недели.</li>
+									<li>Клуб на учебных каникулах.</li>
+								</ul>
+
+								<div class="price-card__section-title">Занятия по расписанию:</div>
+
+								<ul class="price-card__list">
+									<li>Аэройога в гамаках.</li>
+									<li>Робототехника.</li>
+									<li>IT-программирование.</li>
+									<li>Шахматы.</li>
+									<li>Инженеринг.</li>
+									<li>Творческая мастерская.</li>
+									<li>Английский клуб.</li>
+									<li>Мастер-классы.</li>
+									<li>Эмоциональный интеллект.</li>
+								</ul>
+
+								<div class="price-card__prices">
+									<div class="price-card__price-line price-card__price-line--bold">25 000 ₽ в месяц до 17:00</div>
+									<div class="price-card__price-line price-card__price-line--bold">27 000 ₽ в месяц до 18:00</div>
+								</div>
+
+								<a href="#" class="price-card__btn btn">Записаться</a>
+							</div>
+
+						</div>
+
+						<div class="price__nav slider-nav">
+							<button class="price__arrow price__arrow_prev slider-nav__btn slider-nav__btn--prev _icon-arr-r"
+								type="button" aria-label="Предыдущий тариф"></button>
+
+							<button class="price__arrow price__arrow_next slider-nav__btn slider-nav__btn--next _icon-arr-r"
+								type="button" aria-label="Следующий тариф"></button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="teachers">
+				<div class="teachers__container">
+					<div class="teachers__header">
+						<h2 class="teachers__title">Наши педагоги</h2>
+						<p class="teachers__subtitle">
+							С детьми работают внимательные специалисты, которые помогают раскрывать способности ребёнка,
+							поддерживают интерес к учёбе и создают комфортную атмосферу на занятиях.
+						</p>
+					</div>
+					<div class="teachers__slider-wrapper custom-slider-wrapper">
+						<div class="teachers__slider-inner">
+							<div class="teachers__body custom-slider">
+								<div class="teacher-card custom-item">
+									<div class="teacher-card__img teacher-card__img-ibg">
+										<img src="@img/teachers/Акалелова Елена Борисовна - преподаватель математики .jpg" loading="lazy"
+											alt="Акалелова Елена Борисовна">
+									</div>
+									<div class="teacher-card__body">
+										<div class="teacher-card__name">Акалелова Елена Борисовна</div>
+										<div class="teacher-card__position">Преподаватель математики</div>
+									</div>
+								</div>
+
+								<div class="teacher-card custom-item">
+									<div class="teacher-card__img teacher-card__img-ibg">
+										<img
+											src="@img/teachers/Атанелов Михаил Михайлович - преподаватель по шахматам, робототехнике, начальные классы.jpg"
+											loading="lazy" alt="Атанелов Михаил Михайлович">
+									</div>
+									<div class="teacher-card__body">
+										<div class="teacher-card__name">Атанелов Михаил Михайлович</div>
+										<div class="teacher-card__position">Преподаватель по шахматам, робототехнике, начальные классы</div>
+									</div>
+								</div>
+
+								<div class="teacher-card custom-item">
+									<div class="teacher-card__img teacher-card__img-ibg">
+										<img
+											src="@img/teachers/Вишнева-Пронская Дарья Витальевна - преподаватель русского языка и литературы .jpg"
+											loading="lazy" alt="Вишнева-Пронская Дарья Витальевна">
+									</div>
+									<div class="teacher-card__body">
+										<div class="teacher-card__name">Вишнева-Пронская Дарья Витальевна</div>
+										<div class="teacher-card__position">Преподаватель русского языка и литературы</div>
+									</div>
+								</div>
+
+								<div class="teacher-card custom-item">
+									<div class="teacher-card__img teacher-card__img-ibg">
+										<img src="@img/teachers/Власова Валерия Андреевна - педагог-администратор .jpg" loading="lazy"
+											alt="Власова Валерия Андреевна">
+									</div>
+									<div class="teacher-card__body">
+										<div class="teacher-card__name">Власова Валерия Андреевна</div>
+										<div class="teacher-card__position">Педагог-администратор</div>
+									</div>
+								</div>
+
+								<div class="teacher-card custom-item">
+									<div class="teacher-card__img teacher-card__img-ibg">
+										<img src="@img/teachers/Губанова Ольга Борисовна- преподаватель английского языка .jpg"
+											loading="lazy" alt="Губанова Ольга Борисовна">
+									</div>
+									<div class="teacher-card__body">
+										<div class="teacher-card__name">Губанова Ольга Борисовна</div>
+										<div class="teacher-card__position">Преподаватель английского языка</div>
+									</div>
+								</div>
+
+								<div class="teacher-card custom-item">
+									<div class="teacher-card__img teacher-card__img-ibg">
+										<img src="@img/teachers/Джером - английский клуб.jpg" loading="lazy" alt="Джером">
+									</div>
+									<div class="teacher-card__body">
+										<div class="teacher-card__name">Джером</div>
+										<div class="teacher-card__position">Английский клуб</div>
+									</div>
+								</div>
+
+								<div class="teacher-card custom-item">
+									<div class="teacher-card__img teacher-card__img-ibg">
+										<img src="@img/teachers/Загорина Анастасия Александровна - преподаватель начальных классов.jpg"
+											loading="lazy" alt="Загорина Анастасия Александровна">
+									</div>
+									<div class="teacher-card__body">
+										<div class="teacher-card__name">Загорина Анастасия Александровна</div>
+										<div class="teacher-card__position">Преподаватель начальных классов</div>
+									</div>
+								</div>
+
+								<div class="teacher-card custom-item">
+									<div class="teacher-card__img teacher-card__img-ibg">
+										<img src="@img/teachers/Лончакова Юлия Михайловна - преподаватель английского языка.jpg"
+											loading="lazy" alt="Лончакова Юлия Михайловна">
+									</div>
+									<div class="teacher-card__body">
+										<div class="teacher-card__name">Лончакова Юлия Михайловна</div>
+										<div class="teacher-card__position">Преподаватель английского языка</div>
+									</div>
+								</div>
+
+								<div class="teacher-card custom-item">
+									<div class="teacher-card__img teacher-card__img-ibg">
+										<img src="@img/teachers/Никитина Софья Даниловна - преподаватель китайского языка .jpg"
+											loading="lazy" alt="Никитина Софья Даниловна">
+									</div>
+									<div class="teacher-card__body">
+										<div class="teacher-card__name">Никитина Софья Даниловна</div>
+										<div class="teacher-card__position">Преподаватель китайского языка</div>
+									</div>
+								</div>
+
+								<div class="teacher-card custom-item">
+									<div class="teacher-card__img teacher-card__img-ibg">
+										<img src="@img/teachers/Ремизова Рената Декрановна-преподаватель музыки.jpg" loading="lazy"
+											alt="Ремизова Рената Декрановна">
+									</div>
+									<div class="teacher-card__body">
+										<div class="teacher-card__name">Ремизова Рената Декрановна</div>
+										<div class="teacher-card__position">Преподаватель музыки</div>
+									</div>
+								</div>
+
+								<div class="teacher-card custom-item">
+									<div class="teacher-card__img teacher-card__img-ibg">
+										<img src="@img/teachers/Таранова Ольга Павловна - нейропсихолог.jpg" loading="lazy"
+											alt="Таранова Ольга Павловна">
+									</div>
+									<div class="teacher-card__body">
+										<div class="teacher-card__name">Таранова Ольга Павловна</div>
+										<div class="teacher-card__position">Нейропсихолог</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="teachers__nav slider-nav">
+							<button class="slider-nav__btn slider-nav__btn--prev _icon-arr-r" type="button"
+								aria-label="Предыдущий педагог"></button>
+							<button class="slider-nav__btn slider-nav__btn--next _icon-arr-r" type="button"
+								aria-label="Следующий педагог"></button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="extra-lessons">
+				<div class="extra-lessons__container">
+					<div class="extra-lessons__header">
+						<h2 class="extra-lessons__title">Дополнительные занятия</h2>
+						<p class="extra-lessons__subtitle">
+							Индивидуальные и групповые занятия для развития ребёнка: подготовка к школе,
+							языки, IT-направления, творчество, шахматы и работа со специалистами.
+						</p>
+					</div>
+
+					<div class="extra-lessons__body">
+						<div class="extra-lessons__card lessons-price">
+							<div class="lessons-price__header">
+								<h3 class="lessons-price__title">Индивидуальные занятия</h3>
+								<div class="lessons-price__date">Прайс на услуги с 01.04.2026</div>
+								<div class="lessons-price__badge">Абонемент на 8 занятий</div>
+							</div>
+
+							<div class="lessons-price__list">
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Подготовка к школе</div>
+									<div class="lessons-price__desc">
+										Диагностика по выявлению уровня знаний входит в стоимость.<br>
+										С понедельника по пятницу — время по записи.<br>
+										Длительность одного занятия 45 минут
+									</div>
+									<div class="lessons-price__cost">10 000 ₽</div>
+								</div>
+
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Репетиторство по русскому языку</div>
+									<div class="lessons-price__desc">
+										С понедельника по пятницу — время по записи.<br>
+										Длительность одного занятия 45 минут
+									</div>
+									<div class="lessons-price__cost">10 000 ₽</div>
+								</div>
+
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Репетиторство по математике</div>
+									<div class="lessons-price__desc">
+										С понедельника по пятницу — время по записи.<br>
+										Длительность одного занятия 45 минут
+									</div>
+									<div class="lessons-price__cost">10 000 ₽</div>
+								</div>
+
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Английский язык</div>
+									<div class="lessons-price__desc">
+										С понедельника по пятницу — время по записи.<br>
+										Длительность одного занятия 45 минут
+									</div>
+									<div class="lessons-price__cost">12 000 ₽</div>
+								</div>
+
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Китайский язык</div>
+									<div class="lessons-price__desc">
+										С понедельника по пятницу — время по записи.<br>
+										Длительность одного занятия 45 минут
+									</div>
+									<div class="lessons-price__cost">12 000 ₽</div>
+								</div>
+
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Игра на фортепиано, занятия по сольфеджио</div>
+									<div class="lessons-price__desc">
+										Вторник, среда, четверг — время по записи.<br>
+										Длительность одного занятия 45 минут
+									</div>
+									<div class="lessons-price__cost">11 000 ₽</div>
+								</div>
+
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Логопед-дефектолог</div>
+									<div class="lessons-price__desc">
+										С понедельника по пятницу — время по записи.<br>
+										Длительность одного занятия 30 минут
+									</div>
+									<div class="lessons-price__cost">12 000 ₽</div>
+								</div>
+
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Нейропсихолог</div>
+									<div class="lessons-price__desc">
+										Понедельник и пятница — время по записи.<br>
+										Длительность одного занятия 60 минут.<br>
+										Консультация для родителей и детей 1 час — 3 000 ₽<br>
+										Индивидуальные занятия для детей 1 час — 2 000 ₽
+									</div>
+								</div>
+							</div>
+
+							<div class="lessons-price__footer">
+								<div class="lessons-price__footer-item">
+									Разовое посещение любого индивидуального <br>занятия — 3 000 ₽
+								</div>
+								<div class="lessons-price__footer-item">
+									Диагностика логопеда-дефектолога — 2 000 ₽
+								</div>
+								<div class="lessons-price__footer-item">
+									Диагностика нейропсихолога с заключением — 5 000 ₽
+								</div>
+							</div>
+						</div>
+
+						<div class="extra-lessons__card lessons-price lessons-price_group">
+							<div class="lessons-price__header">
+								<h3 class="lessons-price__title">Групповые занятия</h3>
+								<div class="lessons-price__date">Прайс на услуги с 01.04.2026</div>
+								<div class="lessons-price__badge">
+									Длительность одного занятия 40–60 минут<br>
+									Абонемент на 8 занятий
+								</div>
+							</div>
+
+							<div class="lessons-price__list">
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Подготовка к школе</div>
+									<div class="lessons-price__desc">
+										С понедельника по пятницу — время по записи
+									</div>
+									<div class="lessons-price__cost">8 000 ₽</div>
+								</div>
+
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Английский язык</div>
+									<div class="lessons-price__desc">
+										Вторник, четверг — время по записи
+									</div>
+									<div class="lessons-price__cost">8 000 ₽</div>
+								</div>
+
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Робототехника</div>
+									<div class="lessons-price__desc">
+										Понедельник, четверг — время по записи
+									</div>
+									<div class="lessons-price__cost">7 000 ₽</div>
+								</div>
+
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">IT-программирование</div>
+									<div class="lessons-price__desc">
+										Понедельник, четверг — время по записи
+									</div>
+									<div class="lessons-price__cost">7 000 ₽</div>
+								</div>
+
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Аэройога в гамаках</div>
+									<div class="lessons-price__desc">
+										Вторник 17:00, суббота 12:00
+									</div>
+									<div class="lessons-price__cost">7 000 ₽</div>
+								</div>
+
+								<div class="lessons-price__item">
+									<div class="lessons-price__name">Шахматы</div>
+									<div class="lessons-price__desc">
+										Понедельник, четверг — время по записи
+									</div>
+									<div class="lessons-price__cost">7 000 ₽</div>
+								</div>
+							</div>
+
+							<div class="lessons-price__footer">
+								<div class="lessons-price__footer-item">
+									Разовое посещение любого группового занятия — 1 500 ₽
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<a href="#" class="extra-lessons__btn btn">Узнать <span>расписание</span></a>
+				</div>
+			</section>
+
+			<section class="events">
+				<div class="events__container">
+					<div class="events__body">
+						<div class="events__content">
+							<span class="events__label">образовательные поездки</span>
+
+							<h2 class="events__title">Выездные мероприятия</h2>
+
+							<p class="events__text">
+								Мы организуем для детей поездки, экскурсии и выездные программы, где обучение выходит за пределы
+								класса. Ребята знакомятся с новыми городами, учатся быть самостоятельнее, общаются в команде
+								и получают впечатления, которые запоминаются надолго.
+							</p>
+
+							<div class="events__items">
+								<div class="events-item">
+									<div class="events-item__icon">01</div>
+									<div class="events-item__body">
+										<div class="events-item__title">Живой опыт</div>
+										<div class="events-item__text">
+											Дети видят новые места, узнают больше о культуре, истории и окружающем мире.
+										</div>
+									</div>
+								</div>
+
+								<div class="events-item">
+									<div class="events-item__icon">02</div>
+									<div class="events-item__body">
+										<div class="events-item__title">Командное общение</div>
+										<div class="events-item__text">
+											Поездки помогают ребятам дружить, договариваться и чувствовать себя частью коллектива.
+										</div>
+									</div>
+								</div>
+
+								<div class="events-item">
+									<div class="events-item__icon">03</div>
+									<div class="events-item__body">
+										<div class="events-item__title">Эмоции и самостоятельность</div>
+										<div class="events-item__text">
+											Ребёнок получает новые впечатления, становится увереннее и учится действовать вне привычной среды.
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<a href="#" class="events__btn btn btn_wt">Узнать <span>подробнее</span></a>
+						</div>
+
+						<div class="events__calendar">
+							<div class="events__calendar-header">
+								<span class="events__calendar-label">календарь</span>
+								<h3 class="events__calendar-title">Ближайшие поездки</h3>
+							</div>
+
+							<div class="events__calendar-slider custom-slider-wrapper">
+								<div class="events__calendar-inner">
+									<div class="events__calendar-track custom-slider">
+										<div class="events-trip custom-item">
+											<div class="events-trip__body">
+												<div class="events-trip__date">5–8 октября 2026</div>
+												<div class="events-trip__place">Краснодар</div>
+											</div>
+											<div class="events-trip__img events-trip__img-ibg">
+												<img src="@img/events/1.jpg" loading="lazy" alt="Краснодар">
+											</div>
+										</div>
+
+										<div class="events-trip custom-item">
+											<div class="events-trip__body">
+												<div class="events-trip__date">16–19 ноября 2026</div>
+												<div class="events-trip__place">Красная Поляна</div>
+											</div>
+											<div class="events-trip__img events-trip__img-ibg">
+												<img src="@img/events/2.jpg" loading="lazy" alt="Красная Поляна">
+											</div>
+										</div>
+
+										<div class="events-trip custom-item">
+											<div class="events-trip__body">
+												<div class="events-trip__date">3–11 апреля 2027</div>
+												<div class="events-trip__place">Нижний Новгород</div>
+											</div>
+											<div class="events-trip__img events-trip__img-ibg">
+												<img src="@img/events/3.jpg" loading="lazy" alt="Нижний Новгород">
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="events__calendar-nav slider-nav">
+									<button class="slider-nav__btn slider-nav__btn--prev _icon-arr-r" type="button"
+										aria-label="Предыдущая поездка"></button>
+									<button class="slider-nav__btn slider-nav__btn--next _icon-arr-r" type="button"
+										aria-label="Следующая поездка"></button>
+								</div>
+							</div>
+
+							<div class="events__calendar-note">
+								<p>
+									Подробная программа, условия участия и стоимость поездок уточняются отдельно.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="contacts" id="contacts">
+				<div class="contacts__container">
+					<div class="contacts__body">
+						<h2 class="contacts__title">Контакты</h2>
+						<ul class="contacts__list">
+							<li class="contacts__item">
+								<span class="contacts__item-title">Телефон</span>
+								<a href="tel:+78622777572" class="contacts__item-link">+7 862 277 75 72</a>
+							</li>
+							<li class="contacts__item">
+								<span class="contacts__item-title">Адрес:</span>
+								<a href="#" class="contacts__item-link">354008. Сочи, Виноградная, 2/3 к1</a>
+							</li>
+							<li class="contacts__item">
+								<span class="contacts__item-title">Email:</span>
+								<a href="mailto:starschool.sochi23@gmail.ru" class="contacts__item-link">starschool.sochi23@gmail.ru</a>
+							</li>
+						</ul>
+						<ul class="contacts__socials">
+							<li class="contacts__socials-item">
+								<a href="#" class="_icon-w" aria-label="whatsapp"></a>
+							</li>
+							<li class="contacts__socials-item">
+								<a href="#" class="_icon-t" aria-label="telegram"></a>
+							</li>
+							<li class="contacts__socials-item">
+								<a href="#" class="_icon-vk" aria-label="vk"></a>
+							</li>
+						</ul>
+					</div>
+					<div class="contacts__map">
+						<a href="https://yandex.by/maps/239/sochi/?utm_medium=mapframe&utm_source=maps"
+							style="color:#eee;font-size:12px;position:absolute;top:0px;">Сочи</a><a
+							href="https://yandex.by/maps/239/sochi/?from=api-maps&ll=39.718436%2C43.596125&mode=routes&origin=jsapi_2_0&rtext=~43.596125%2C39.718436&rtt=auto&ruri=~&utm_medium=mapframe&utm_source=maps&z=18"
+							style="color:#eee;font-size:12px;position:absolute;top:14px;">Виноградная улица, 2/3Б: как доехать на
+							автомобиле, общественным транспортом или пешком – Яндекс Карты</a><iframe
+							src="https://yandex.by/map-widget/v1/?from=api-maps&ll=39.718436%2C43.596125&mode=routes&origin=jsapi_2_0&rtext=~43.596125%2C39.718436&rtt=auto&ruri=~&z=18"
+							width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
+					</div>
+				</div>
+
+
+			</section>
+		</main>
+		@@include('html/_footer.htm',{})
+	</div>
+	@@include('html/_popup.htm',{})
+	@@include('html/_js.htm',{})
+</body>
+
+</html>

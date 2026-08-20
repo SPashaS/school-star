@@ -82,31 +82,191 @@
     });
   });
 
-  class CustomSlider {
+  // class CustomSlider {
+  //   constructor(wrapperSelector, breakpoints = [], itemsPerSlide = [], gap = 10) {
+  //     this.wrapper = document.querySelector(wrapperSelector);
+  //     if (!this.wrapper) {
+  //       console.error(`Элемент с классом ${wrapperSelector} не найден.`);
+  //       return;
+  //     }
+
+  //     this.slider = this.wrapper.querySelector('.custom-slider');
+  //     this.items = Array.from(this.wrapper.querySelectorAll('.custom-item'));
+  //     this.navPrev = this.wrapper.querySelector('.slider-nav__btn--prev');
+  //     this.navNext = this.wrapper.querySelector('.slider-nav__btn--next');
+
+  //     this.breakpoints = breakpoints;     // Массив: [768, 1280, ...]
+  //     this.itemsPerSlide = itemsPerSlide; // Массив: [2, 4, ...]
+  //     this.currentSlideIndex = 0;
+  //     this.totalSlides = 0;
+  //     this.gap = gap;
+
+  //     // Начальная настройка
+  //     // Вы хотите display: "flex" или "grid" — оставляю "flex" как в вашем коде
+  //     this.slider.style.display = 'flex';
+  //     this.slider.style.gap = `${this.gap}px`;
+
+
+
+  //     this.init();
+  //   }
+
+  //   init() {
+  //     window.addEventListener('resize', () => this.updateSlider());
+  //     this.updateSlider();
+
+  //     if (this.navPrev && this.navNext) {
+  //       this.navPrev.addEventListener('click', () => this.moveSlide(-1));
+  //       this.navNext.addEventListener('click', () => this.moveSlide(1));
+  //     }
+  //   }
+
+  //   /**
+  //    * Определяем количество элементов на слайд в зависимости от ширины экрана.
+  //    * Если breakpoints пусты — слайдер работает всегда, берём itemsPerSlide[0] или 1.
+  //    * Если ширина > последнего breakpoint — возвращаем null (отключаем).
+  //    */
+  //   getItemsPerSlide() {
+  //     // 1) Если нет breakpoints, значит слайдер работает на всех разрешениях
+  //     //    itemsPerSlide[0] или 1 по умолчанию
+  //     if (!this.breakpoints.length) {
+  //       if (this.itemsPerSlide.length) {
+  //         return this.itemsPerSlide[0];
+  //       } else {
+  //         return 1; // если даже itemsPerSlide пуст
+  //       }
+  //     }
+
+  //     // 2) Если breakpoints есть, ищем подходящее
+  //     const width = window.innerWidth;
+  //     for (let i = 0; i < this.breakpoints.length; i++) {
+  //       if (width <= this.breakpoints[i]) {
+  //         return this.itemsPerSlide[i];
+  //       }
+  //     }
+
+  //     // 3) Если ничего не подошло, ширина больше всех breakpoints => disable
+  //     return null;
+  //   }
+
+  //   updateSlider() {
+  //     const itemsPerSlide = this.getItemsPerSlide();
+
+  //     // Если вернулся null, отключаем
+  //     if (itemsPerSlide === null) {
+  //       this.disableSlider();
+  //     } else {
+  //       // Иначе перестраиваем
+  //       this.rebuildSlides(itemsPerSlide);
+  //       this.slider.style.display = 'flex';       // восстанавливаем display
+  //       this.slider.style.gap = `${this.gap}px`;  // восстанавливаем gap
+
+  //       this.currentSlideIndex = 0;
+  //       this.updateTransform();
+  //     }
+  //   }
+
+  //   rebuildSlides(itemsPerSlide) {
+  //     this.slider.innerHTML = '';
+
+  //     const slides = [];
+  //     for (let i = 0; i < this.items.length; i += itemsPerSlide) {
+  //       const slide = document.createElement('div');
+  //       slide.classList.add('custom-slider-slide');
+
+  //       this.items.slice(i, i + itemsPerSlide).forEach(item => {
+  //         slide.appendChild(item.cloneNode(true));
+  //       });
+  //       slides.push(slide);
+  //     }
+
+  //     slides.forEach(slide => this.slider.appendChild(slide));
+  //     this.slides = Array.from(this.slider.querySelectorAll('.custom-slider-slide'));
+  //     this.totalSlides = this.slides.length;
+
+  //     this.slider.style.transition = 'transform 0.5s ease';
+  //     this.slider.style.transform = 'translateX(0)';
+
+  //   }
+
+  //   moveSlide(direction) {
+  //     this.currentSlideIndex += direction;
+  //     if (this.currentSlideIndex < 0) {
+  //       this.currentSlideIndex = this.totalSlides - 1;
+  //     } else if (this.currentSlideIndex >= this.totalSlides) {
+  //       this.currentSlideIndex = 0;
+  //     }
+  //     this.updateTransform();
+  //   }
+
+  //   updateTransform() {
+  //     const translateX = -(this.currentSlideIndex * (100 + (this.gap / this.wrapper.offsetWidth) * 100));
+  //     this.slider.style.transform = `translateX(${translateX}%)`;
+
+  //     console.log("Wrapper width:", this.wrapper.offsetWidth);
+  //     console.log("TranslateX:", translateX);
+  //     console.log("Items in slider:", this.items.length);
+  //     console.log("First item visibility:", getComputedStyle(this.items[0]).display);
+
+  //   }
+
+  //   disableSlider() {
+  //     // Убираем слайды
+  //     this.slider.innerHTML = '';
+
+  //     // Возвращаем все .custom-item
+  //     this.items.forEach(item => {
+  //       this.slider.appendChild(item.cloneNode(true));
+  //     });
+
+  //     // Сбрасываем стили, которые навешивали
+  //     this.slider.style.removeProperty('transform');
+  //     this.slider.style.removeProperty('transition');
+  //     this.slider.style.removeProperty('gap');
+
+  //     // Меняем display на grid или что нужно (или оставляем "block"?)
+  //     // В примере оставляю grid, как вы хотели ранее, 
+  //     // но если нужно оставить flex, укажите здесь 'flex' или просто удалите строку
+  //     this.slider.style.display = 'grid';
+  //   }
+  // }
+
+  // // Инициализация слайдера
+  // new CustomSlider('.quantity__slider-wrapper', [], [1], 0);
+
+  // new CustomSlider('.safety__slider-wrapper', [768, 1280], [2, 4], 20);
+
+  // new CustomSlider('.documents__slider-wrapper', [768, 1280], [2, 3], 20);
+
+  // new CustomSlider('.teachers__slider-wrapper', [767], [1], 0);
+
+  // new CustomSlider('.events__calendar-slider', [], [1], 0);
+  // =====================================================
+  // 1. СТАРЫЙ СЛАЙДЕР — только для safety и documents
+  // =====================================================
+
+  class LegacyCustomSlider {
     constructor(wrapperSelector, breakpoints = [], itemsPerSlide = [], gap = 10) {
       this.wrapper = document.querySelector(wrapperSelector);
-      if (!this.wrapper) {
-        console.error(`Элемент с классом ${wrapperSelector} не найден.`);
-        return;
-      }
+
+      // Если блока нет — просто выходим без ошибки в консоли
+      if (!this.wrapper) return;
 
       this.slider = this.wrapper.querySelector('.custom-slider');
       this.items = Array.from(this.wrapper.querySelectorAll('.custom-item'));
       this.navPrev = this.wrapper.querySelector('.slider-nav__btn--prev');
       this.navNext = this.wrapper.querySelector('.slider-nav__btn--next');
 
-      this.breakpoints = breakpoints;     // Массив: [768, 1280, ...]
-      this.itemsPerSlide = itemsPerSlide; // Массив: [2, 4, ...]
+      if (!this.slider || !this.items.length) return;
+
+      this.breakpoints = breakpoints;
+      this.itemsPerSlide = itemsPerSlide;
       this.currentSlideIndex = 0;
       this.totalSlides = 0;
       this.gap = gap;
 
-      // Начальная настройка
-      // Вы хотите display: "flex" или "grid" — оставляю "flex" как в вашем коде
       this.slider.style.display = 'flex';
       this.slider.style.gap = `${this.gap}px`;
-
-
 
       this.init();
     }
@@ -121,45 +281,32 @@
       }
     }
 
-    /**
-     * Определяем количество элементов на слайд в зависимости от ширины экрана.
-     * Если breakpoints пусты — слайдер работает всегда, берём itemsPerSlide[0] или 1.
-     * Если ширина > последнего breakpoint — возвращаем null (отключаем).
-     */
     getItemsPerSlide() {
-      // 1) Если нет breakpoints, значит слайдер работает на всех разрешениях
-      //    itemsPerSlide[0] или 1 по умолчанию
       if (!this.breakpoints.length) {
-        if (this.itemsPerSlide.length) {
-          return this.itemsPerSlide[0];
-        } else {
-          return 1; // если даже itemsPerSlide пуст
-        }
+        return this.itemsPerSlide.length ? this.itemsPerSlide[0] : 1;
       }
 
-      // 2) Если breakpoints есть, ищем подходящее
       const width = window.innerWidth;
+
       for (let i = 0; i < this.breakpoints.length; i++) {
         if (width <= this.breakpoints[i]) {
           return this.itemsPerSlide[i];
         }
       }
 
-      // 3) Если ничего не подошло, ширина больше всех breakpoints => disable
       return null;
     }
 
     updateSlider() {
       const itemsPerSlide = this.getItemsPerSlide();
 
-      // Если вернулся null, отключаем
       if (itemsPerSlide === null) {
         this.disableSlider();
       } else {
-        // Иначе перестраиваем
         this.rebuildSlides(itemsPerSlide);
-        this.slider.style.display = 'flex';       // восстанавливаем display
-        this.slider.style.gap = `${this.gap}px`;  // восстанавливаем gap
+
+        this.slider.style.display = 'flex';
+        this.slider.style.gap = `${this.gap}px`;
 
         this.currentSlideIndex = 0;
         this.updateTransform();
@@ -170,78 +317,232 @@
       this.slider.innerHTML = '';
 
       const slides = [];
+
       for (let i = 0; i < this.items.length; i += itemsPerSlide) {
         const slide = document.createElement('div');
         slide.classList.add('custom-slider-slide');
 
-        this.items.slice(i, i + itemsPerSlide).forEach(item => {
+        this.items.slice(i, i + itemsPerSlide).forEach((item) => {
           slide.appendChild(item.cloneNode(true));
         });
+
         slides.push(slide);
       }
 
-      slides.forEach(slide => this.slider.appendChild(slide));
+      slides.forEach((slide) => this.slider.appendChild(slide));
+
       this.slides = Array.from(this.slider.querySelectorAll('.custom-slider-slide'));
       this.totalSlides = this.slides.length;
 
       this.slider.style.transition = 'transform 0.5s ease';
       this.slider.style.transform = 'translateX(0)';
-
     }
 
     moveSlide(direction) {
       this.currentSlideIndex += direction;
+
       if (this.currentSlideIndex < 0) {
         this.currentSlideIndex = this.totalSlides - 1;
       } else if (this.currentSlideIndex >= this.totalSlides) {
         this.currentSlideIndex = 0;
       }
+
       this.updateTransform();
     }
 
     updateTransform() {
-      const translateX = -(this.currentSlideIndex * (100 + (this.gap / this.wrapper.offsetWidth) * 100));
+      const translateX = -(
+        this.currentSlideIndex *
+        (100 + (this.gap / this.wrapper.offsetWidth) * 100)
+      );
+
       this.slider.style.transform = `translateX(${translateX}%)`;
-
-      console.log("Wrapper width:", this.wrapper.offsetWidth);
-      console.log("TranslateX:", translateX);
-      console.log("Items in slider:", this.items.length);
-      console.log("First item visibility:", getComputedStyle(this.items[0]).display);
-
     }
 
     disableSlider() {
-      // Убираем слайды
       this.slider.innerHTML = '';
 
-      // Возвращаем все .custom-item
-      this.items.forEach(item => {
+      this.items.forEach((item) => {
         this.slider.appendChild(item.cloneNode(true));
       });
 
-      // Сбрасываем стили, которые навешивали
       this.slider.style.removeProperty('transform');
       this.slider.style.removeProperty('transition');
       this.slider.style.removeProperty('gap');
 
-      // Меняем display на grid или что нужно (или оставляем "block"?)
-      // В примере оставляю grid, как вы хотели ранее, 
-      // но если нужно оставить flex, укажите здесь 'flex' или просто удалите строку
       this.slider.style.display = 'grid';
     }
   }
 
-  // Инициализация слайдера
-  new CustomSlider('.quantity__slider-wrapper', [], [1], 0);
 
-  new CustomSlider('.safety__slider-wrapper', [768, 1280], [2, 4], 20);
+  // =====================================================
+  // 2. НОВЫЙ СЛАЙДЕР — для остальных блоков
+  // =====================================================
 
-  new CustomSlider('.documents__slider-wrapper', [768, 1280], [2, 3], 20);
+  class SimpleCustomSlider {
+    constructor(wrapperSelector, breakpoints = [], itemsPerSlide = [], gap = 10) {
+      this.wrapper = document.querySelector(wrapperSelector);
 
-  new CustomSlider('.teachers__slider-wrapper', [767], [1], 0);
+      if (!this.wrapper) return;
 
-  new CustomSlider('.events__calendar-slider', [], [1], 0);
+      this.slider = this.wrapper.querySelector('.custom-slider');
+      this.items = Array.from(this.wrapper.querySelectorAll('.custom-item'));
+      this.navPrev = this.wrapper.querySelector('.slider-nav__btn--prev');
+      this.navNext = this.wrapper.querySelector('.slider-nav__btn--next');
 
+      if (!this.slider || !this.items.length) return;
+
+      this.breakpoints = breakpoints;
+      this.itemsPerSlide = itemsPerSlide;
+      this.currentSlideIndex = 0;
+      this.totalSlides = 0;
+      this.gap = gap;
+      this.slides = [];
+
+      this.init();
+    }
+
+    init() {
+      window.addEventListener('resize', () => this.updateSlider());
+
+      if (this.navPrev) {
+        this.navPrev.addEventListener('click', () => this.moveSlide(-1));
+      }
+
+      if (this.navNext) {
+        this.navNext.addEventListener('click', () => this.moveSlide(1));
+      }
+
+      this.updateSlider();
+    }
+
+    getItemsPerSlide() {
+      const width = window.innerWidth;
+
+      if (!this.breakpoints.length) {
+        return this.itemsPerSlide[0] || 1;
+      }
+
+      for (let i = 0; i < this.breakpoints.length; i++) {
+        if (width <= this.breakpoints[i]) {
+          return this.itemsPerSlide[i] || 1;
+        }
+      }
+
+      return null;
+    }
+
+    updateSlider() {
+      const itemsPerSlide = this.getItemsPerSlide();
+
+      if (itemsPerSlide === null) {
+        this.disableSlider();
+        return;
+      }
+
+      this.rebuildSlides(itemsPerSlide);
+
+      this.slider.style.display = 'flex';
+      this.slider.style.gap = `${this.gap}px`;
+
+      this.currentSlideIndex = 0;
+      this.updateTransform();
+      this.updateNav();
+    }
+
+    rebuildSlides(itemsPerSlide) {
+      this.slider.innerHTML = '';
+
+      for (let i = 0; i < this.items.length; i += itemsPerSlide) {
+        const slide = document.createElement('div');
+        slide.classList.add('custom-slider-slide');
+
+        this.items.slice(i, i + itemsPerSlide).forEach((item) => {
+          slide.appendChild(item.cloneNode(true));
+        });
+
+        this.slider.appendChild(slide);
+      }
+
+      this.slides = Array.from(this.slider.querySelectorAll('.custom-slider-slide'));
+      this.totalSlides = this.slides.length;
+
+      this.slider.style.transition = 'transform 0.5s ease';
+      this.slider.style.transform = 'translateX(0)';
+    }
+
+    moveSlide(direction) {
+      if (this.totalSlides <= 1) return;
+
+      this.currentSlideIndex += direction;
+
+      if (this.currentSlideIndex < 0) {
+        this.currentSlideIndex = this.totalSlides - 1;
+      } else if (this.currentSlideIndex >= this.totalSlides) {
+        this.currentSlideIndex = 0;
+      }
+
+      this.updateTransform();
+      this.updateNav();
+    }
+
+    updateTransform() {
+      const translateX = -(
+        this.currentSlideIndex *
+        (100 + (this.gap / this.wrapper.offsetWidth) * 100)
+      );
+
+      this.slider.style.transform = `translateX(${translateX}%)`;
+    }
+
+    updateNav() {
+      const isDisabled = this.totalSlides <= 1;
+
+      if (this.navPrev) {
+        this.navPrev.disabled = isDisabled;
+      }
+
+      if (this.navNext) {
+        this.navNext.disabled = isDisabled;
+      }
+    }
+
+    disableSlider() {
+      this.slider.innerHTML = '';
+
+      this.items.forEach((item) => {
+        this.slider.appendChild(item.cloneNode(true));
+      });
+
+      this.slider.style.removeProperty('transform');
+      this.slider.style.removeProperty('transition');
+      this.slider.style.removeProperty('gap');
+
+      this.slider.style.display = 'grid';
+
+      this.currentSlideIndex = 0;
+      this.totalSlides = 0;
+      this.slides = [];
+
+      this.updateNav();
+    }
+  }
+
+
+  // =====================================================
+  // 3. ИНИЦИАЛИЗАЦИЯ
+  // =====================================================
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Старый рабочий слайдер — только эти два блока
+    new LegacyCustomSlider('.safety__slider-wrapper', [768, 1280], [2, 4], 20);
+    new LegacyCustomSlider('.documents__slider-wrapper', [768, 1280], [2, 3], 20);
+
+    // Новый отдельный слайдер — остальные блоки
+    new SimpleCustomSlider('.quantity__slider-wrapper', [], [1], 0);
+    new SimpleCustomSlider('.teachers__slider-wrapper', [767], [1], 0);
+    new SimpleCustomSlider('.events__calendar-slider', [], [1], 0);
+  });
 
   class FadeSlider {
     constructor(root) {

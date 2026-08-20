@@ -711,7 +711,7 @@
 			</section>
 
 			<section class="school-slider">
-				<div class="school-slider__wrapper">
+				<div class="school-slider__wrapper data-fade-slider">
 					<div class="school-slider__track">
 						<!-- Вариант 1: картинка справа -->
 						<div class="school-slider__slide school-slider__slide_side is-active">
@@ -789,13 +789,15 @@
 						</div>
 					</div>
 
-					<button class="school-slider__arrow school-slider__arrow_prev" type="button" aria-label="Предыдущий слайд">
-						‹
-					</button>
 
-					<button class="school-slider__arrow school-slider__arrow_next" type="button" aria-label="Следующий слайд">
-						›
-					</button>
+					<div class="school-slider__nav-wrapper">
+						<div class="school-slider__nav slider-nav slider-nav--bg">
+							<button class="slider-btn slider-btn_prev" type="button" aria-label="Предыдущий слайд"
+								data-fade-prev></button>
+							<button class="slider-btn slider-btn_next" type="button" aria-label="Следующий слайд"
+								data-fade-next></button>
+						</div>
+					</div>
 				</div>
 			</section>
 
@@ -1380,11 +1382,12 @@
 						</ul>
 					</div>
 					<div class="contacts__map">
-						<a href="https://yandex.by/maps/239/sochi/?utm_medium=mapframe&utm_source=maps"
+						<!-- <a href="https://yandex.by/maps/239/sochi/?utm_medium=mapframe&utm_source=maps"
 							style="color:#eee;font-size:12px;position:absolute;top:0px;">Сочи</a><a
 							href="https://yandex.by/maps/239/sochi/?from=api-maps&ll=39.718436%2C43.596125&mode=routes&origin=jsapi_2_0&rtext=~43.596125%2C39.718436&rtt=auto&ruri=~&utm_medium=mapframe&utm_source=maps&z=18"
 							style="color:#eee;font-size:12px;position:absolute;top:14px;">Виноградная улица, 2/3Б: как доехать на
-							автомобиле, общественным транспортом или пешком – Яндекс Карты</a><iframe
+							автомобиле, общественным транспортом или пешком – Яндекс Карты</a> -->
+							<iframe
 							src="https://yandex.by/map-widget/v1/?from=api-maps&ll=39.718436%2C43.596125&mode=routes&origin=jsapi_2_0&rtext=~43.596125%2C39.718436&rtt=auto&ruri=~&z=18"
 							width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
 					</div>

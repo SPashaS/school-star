@@ -284,102 +284,103 @@ document.addEventListener('DOMContentLoaded', () => {
 //   });
 // });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const sliders = document.querySelectorAll('.school-slider');
+// document.addEventListener('DOMContentLoaded', () => {
+//   const sliders = document.querySelectorAll('.school-slider');
 
-  sliders.forEach((slider) => {
-    const slides = slider.querySelectorAll('.school-slider__slide');
-    const prevBtn = slider.querySelector('.school-slider__arrow_prev');
-    const nextBtn = slider.querySelector('.school-slider__arrow_next');
+//   sliders.forEach((slider) => {
+//     const slides = slider.querySelectorAll('.school-slider__slide');
+//     const prevBtn = slider.querySelector('.school-slider__arrow_prev');
+//     const nextBtn = slider.querySelector('.school-slider__arrow_next');
 
-    if (!slides.length || !prevBtn || !nextBtn) return;
+//     if (!slides.length || !prevBtn || !nextBtn) return;
 
-    let currentIndex = 0;
+//     let currentIndex = 0;
 
-    const showSlide = (index) => {
-      slides.forEach((slide) => slide.classList.remove('is-active'));
-      slides[index].classList.add('is-active');
-    };
+//     const showSlide = (index) => {
+//       slides.forEach((slide) => slide.classList.remove('is-active'));
+//       slides[index].classList.add('is-active');
+//     };
 
-    prevBtn.addEventListener('click', () => {
-      currentIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
-      showSlide(currentIndex);
-    });
+//     prevBtn.addEventListener('click', () => {
+//       currentIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
+//       showSlide(currentIndex);
+//     });
 
-    nextBtn.addEventListener('click', () => {
-      currentIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1;
-      showSlide(currentIndex);
-    });
-  });
-});
+//     nextBtn.addEventListener('click', () => {
+//       currentIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1;
+//       showSlide(currentIndex);
+//     });
+//   });
+// });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const priceSlider = document.querySelector('.price__slider');
+// document.addEventListener('DOMContentLoaded', () => {
+//   const priceSlider = document.querySelector('.price__slider');
 
-  if (!priceSlider) return;
+//   if (!priceSlider) return;
 
-  const track = priceSlider.querySelector('.price__track');
-  const cards = priceSlider.querySelectorAll('.price-card');
-  const prevBtn = priceSlider.querySelector('.price__arrow_prev');
-  const nextBtn = priceSlider.querySelector('.price__arrow_next');
-  const currentEl = priceSlider.querySelector('.price__counter-current');
-  const totalEl = priceSlider.querySelector('.price__counter-total');
+//   const track = priceSlider.querySelector('.price__track');
+//   const cards = priceSlider.querySelectorAll('.price-card');
+//   const prevBtn = priceSlider.querySelector('.price__arrow_prev');
+//   const nextBtn = priceSlider.querySelector('.price__arrow_next');
+//   const currentEl = priceSlider.querySelector('.price__counter-current');
+//   const totalEl = priceSlider.querySelector('.price__counter-total');
 
-  if (!track || !cards.length || !prevBtn || !nextBtn || !currentEl || !totalEl)
-    return;
+//   if (!track || !cards.length || !prevBtn || !nextBtn || !currentEl || !totalEl)
+//     return;
 
-  let currentIndex = 0;
+//   let currentIndex = 0;
 
-  totalEl.textContent = cards.length;
+//   totalEl.textContent = cards.length;
 
-  const getCardStep = () => {
-    const card = cards[0];
-    const trackStyles = window.getComputedStyle(track);
-    const gap = parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
+//   const getCardStep = () => {
+//     const card = cards[0];
+//     const trackStyles = window.getComputedStyle(track);
+//     const gap = parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
 
-    return card.offsetWidth + gap;
-  };
+//     return card.offsetWidth + gap;
+//   };
 
-  const updateSlider = () => {
-    const step = getCardStep();
+//   const updateSlider = () => {
+//     const step = getCardStep();
 
-    track.scrollTo({
-      left: currentIndex * step,
-      behavior: 'smooth',
-    });
+//     track.scrollTo({
+//       left: currentIndex * step,
+//       behavior: 'smooth',
+//     });
 
-    currentEl.textContent = currentIndex + 1;
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex === cards.length - 1;
-  };
+//     currentEl.textContent = currentIndex + 1;
+//     prevBtn.disabled = currentIndex === 0;
+//     nextBtn.disabled = currentIndex === cards.length - 1;
+//   };
 
-  prevBtn.addEventListener('click', () => {
-    if (currentIndex === 0) return;
+//   prevBtn.addEventListener('click', () => {
+//     if (currentIndex === 0) return;
 
-    currentIndex -= 1;
-    updateSlider();
-  });
+//     currentIndex -= 1;
+//     updateSlider();
+//   });
 
-  nextBtn.addEventListener('click', () => {
-    if (currentIndex === cards.length - 1) return;
+//   nextBtn.addEventListener('click', () => {
+//     if (currentIndex === cards.length - 1) return;
 
-    currentIndex += 1;
-    updateSlider();
-  });
+//     currentIndex += 1;
+//     updateSlider();
+//   });
 
-  track.addEventListener('scroll', () => {
-    const step = getCardStep();
-    const index = Math.round(track.scrollLeft / step);
+//   track.addEventListener('scroll', () => {
+//     const step = getCardStep();
+//     const index = Math.round(track.scrollLeft / step);
 
-    if (index !== currentIndex) {
-      currentIndex = Math.max(0, Math.min(index, cards.length - 1));
-      currentEl.textContent = currentIndex + 1;
-      prevBtn.disabled = currentIndex === 0;
-      nextBtn.disabled = currentIndex === cards.length - 1;
-    }
-  });
+//     if (index !== currentIndex) {
+//       currentIndex = Math.max(0, Math.min(index, cards.length - 1));
+//       currentEl.textContent = currentIndex + 1;
+//       prevBtn.disabled = currentIndex === 0;
+//       nextBtn.disabled = currentIndex === cards.length - 1;
+//     }
+//   });
 
-  window.addEventListener('resize', updateSlider);
+//   window.addEventListener('resize', updateSlider);
 
-  updateSlider();
-});
+//   updateSlider();
+// });
+

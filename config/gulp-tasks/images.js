@@ -34,12 +34,7 @@ export const images = () => {
 		// 		app.plugins.newer(app.path.build.images)
 		// 	)
 		// )
-		.pipe(imagemin({
-			progressive: true,
-			svgoPlugins: [{ removeViewBox: false }],
-			interlaced: true,
-			optimizationLevel: 0 // 0 to 7
-		}))
+		.pipe(imagemin())
 		.pipe(app.gulp.dest(app.path.build.images))
 		.pipe(app.gulp.src(app.path.src.svg))
 		.pipe(app.gulp.dest(app.path.build.images));
