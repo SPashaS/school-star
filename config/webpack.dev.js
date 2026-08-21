@@ -36,6 +36,11 @@ const paths = {
 const config = {
 	mode: "development",
 	devtool: 'inline-source-map',
+	infrastructureLogging: {
+		// webpack-dev-middleware 8 logs browser-cancelled responses as errors.
+		// Compilation errors are reported by stats and remain visible.
+		level: 'none',
+	},
 	optimization: {
 		minimize: false
 	},
@@ -51,7 +56,9 @@ const config = {
 		historyApiFallback: true,
 		static: paths.build,
 		open: true,
-		compress: true,
+		// Compression adds no practical value on localhost and can log
+		// ERR_STREAM_PREMATURE_CLOSE when the browser cancels a request during HMR.
+		compress: false,
 		port: 8080,
 		hot: true,
 		watchFiles: [
@@ -94,6 +101,11 @@ const config = {
 						loader: 'sass-loader',
 						options: {
 							sourceMap: true,
+							sassOptions: {
+								// Keep legacy @import deprecations out of the dev-server overlay
+								// until the stylesheets are migrated to the Sass module system.
+								silenceDeprecations: ['import'],
+							},
 						}
 					}
 				],

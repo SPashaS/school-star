@@ -79,6 +79,7 @@ const config = {
 						options: {
 							sassOptions: {
 								outputStyle: "expanded",
+								silenceDeprecations: ['import'],
 							},
 						}
 					},
