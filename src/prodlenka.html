@@ -6,6 +6,7 @@
     <div class="wrapper">
         @@include('html/_header.htm',{})
         <main class="page prodlenka-page">
+
             <section class="prodlenka-hero">
                 <div class="prodlenka-hero__container">
                     <div class="prodlenka-hero__content fade-in-parent">
@@ -119,15 +120,17 @@
                                 <h3>Английский с&nbsp;носителем</h3>
                             </div>
                         </article>
-                        <article class="prodlenka-activity prodlenka-activity_violet fade-in-child"><span
-                                class="prodlenka-activity__icon" aria-hidden="true">♟</span>
+                        <article class="prodlenka-activity prodlenka-activity_photo fade-in-child">
+                            <img src="@img/prodlenka/reading.jpg" loading="lazy" width="1200" height="800"
+                                alt="Шахматы и логические квесты">
                             <div class="prodlenka-activity__content">
                                 <h3>Шахматы и&nbsp;логические квесты</h3>
                                 <p>Тренируем мышление и&nbsp;работу в&nbsp;команде.</p>
                             </div>
                         </article>
-                        <article class="prodlenka-activity prodlenka-activity_orange fade-in-child"><span
-                                class="prodlenka-activity__icon" aria-hidden="true">✦</span>
+                        <article class="prodlenka-activity prodlenka-activity_photo fade-in-child">
+                            <img src="@img/prodlenka/hero.jpg" loading="lazy" width="1200" height="800"
+                                alt="Творческая мастерская">
                             <div class="prodlenka-activity__content">
                                 <h3>Творческая мастерская</h3>
                                 <p>Рисуем, лепим и&nbsp;создаём из&nbsp;необычных материалов.</p>
@@ -220,6 +223,7 @@
                         на&nbsp;продлёнку</a>
                 </div>
             </section>
+
         </main>
         @@include('html/_footer.htm',{})
     </div>

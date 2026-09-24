@@ -78,7 +78,7 @@ const config = {
 						loader: 'sass-loader',
 						options: {
 							sassOptions: {
-								outputStyle: "expanded",
+								style: "expanded",
 								silenceDeprecations: ['import'],
 							},
 						}

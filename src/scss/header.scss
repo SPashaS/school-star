@@ -32,15 +32,22 @@
   &__container {
     display: flex;
     align-items: center;
-    // gap: 17px;
-    gap: 24px;
+    gap: 14px;
+
+    @media (min-width:$mobile) {
+      gap: 24px;
+    }
   }
 
   // .header__logo
   &__logo {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     position: relative;
     z-index: 12;
+
+    @media (min-width:$mobile) {
+      flex: 1 1 auto;
+    }
 
     @media (min-width:1470px) {
       flex: 1 0 auto;
@@ -54,6 +61,12 @@
 
   // .header__phone
   &__phone {
+    margin-right: auto;
+
+    @media (min-width:$mobile) {
+      margin-right: 0;
+    }
+
     @media (min-width:1470px) {
       order: 3;
     }
@@ -151,6 +164,7 @@
   &__wrapper {
     background: #f1f6ff;
     transition: all 0.3s ease 0s;
+
     @media (max-width:1470px) {
       position: fixed;
       top: 0;
@@ -179,6 +193,7 @@
       right: 0;
       padding: 20px;
       transform: translateX(30px);
+      pointer-events: none;
       overflow: hidden;
       opacity: 0;
 
@@ -186,6 +201,7 @@
         transform: translateX(0);
         overflow: visible;
         opacity: 1;
+        pointer-events: visible;
       }
     }
   }
@@ -245,14 +261,19 @@
 }
 
 .menu-item {
-  font-weight: 700;
-  font-size: 3rem;
+  font-weight: 500;
+  font-size: 2rem;
   text-align: center;
+  line-height: 1;
+  margin-bottom: 15px;
 
   @media (min-width: 1470px) {
     font-size: 1.6rem;
     font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 0;
   }
+
 }
 
 //====================================================================================================
